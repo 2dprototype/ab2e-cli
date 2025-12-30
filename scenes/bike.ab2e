@@ -1,0 +1,1452 @@
+{
+    "info": {
+        "dateCreated": "Mon Dec 12 2022 17:25:56 GMT+0600 (Bangladesh Standard Time)",
+        "lastModified": 1767097753622,
+        "favourite": false,
+        "comment": "",
+        "name": "New Scene",
+        "author": "",
+        "editor": {
+            "version": "1.0.1"
+        }
+    },
+    "scene": {
+        "bodies": [
+            {
+                "id": "B9TI8IQP7SVZSA67",
+                "name": "body_35",
+                "userData": "hide",
+                "shapes": [
+                    {
+                        "id": "9ETJ2LWV0KKXLM7G",
+                        "name": "shape_38",
+                        "shapeType": 2,
+                        "position": [
+                            -173.61007199144117,
+                            -184.0338103908215
+                        ],
+                        "scaleXY": [
+                            0.5380801138978781,
+                            0.5380801138978781
+                        ],
+                        "rotation": -60,
+                        "vertices": [
+                            {
+                                "x": -189.07753010038323,
+                                "y": -173.83842742974372,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -180.42821202916483,
+                                "y": -213.52400811668315,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -175.81298300010803,
+                                "y": -213.35229268371972,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -160.7580922736608,
+                                "y": -172.42691872111436,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -159.72704184414442,
+                                "y": -167.6940432752616,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            -174.40228597226383,
+                            -190.60902569597238,
+                            29.350488256238805,
+                            45.82996484142154
+                        ],
+                        "centroid": [
+                            -173.16077184949228,
+                            -188.1671380453045
+                        ],
+                        "isSelected": false,
+                        "isHover": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "userData": null
+                    }
+                ],
+                "position": [
+                    -173.61007199144117,
+                    -184.0338103908215
+                ],
+                "scaleXY": [
+                    0.11433381269843677,
+                    0.11028194545798553
+                ],
+                "rotation": -60,
+                "bounds": [
+                    -174.40228597226383,
+                    -190.60902569597238,
+                    29.350488256238805,
+                    45.82996484142154
+                ],
+                "isSelected": true,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "linearVelocity": [
+                    0,
+                    0
+                ],
+                "angularVelocity": 0,
+                "isAwake": true,
+                "isActive": true,
+                "gravityScale": 1,
+                "cloneOf": null,
+                "selectedSprite": -1,
+                "sprites": []
+            },
+            {
+                "id": "VOG9IVYAO2DHHTOK",
+                "name": "body_36",
+                "userData": "hide",
+                "shapes": [
+                    {
+                        "id": "9JGWS7SATHEDT4HG",
+                        "name": "shape_39",
+                        "shapeType": 1,
+                        "position": [
+                            -161.49070638776243,
+                            -168.66980984123222
+                        ],
+                        "scaleXY": [
+                            0.27784517234343004,
+                            0.26994616416306566
+                        ],
+                        "rotation": -60,
+                        "vertices": [
+                            {
+                                "x": -158.01764173346956,
+                                "y": -174.68533428043912,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -155.1451015097058,
+                                "y": -171.4950551585768,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -154.69636667018244,
+                                "y": -167.2256283520453,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -156.8428386716614,
+                                "y": -163.50782978845982,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -160.76463816547758,
+                                "y": -161.7617321557844,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -164.96377104205533,
+                                "y": -162.65428540202524,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -167.83631126581906,
+                                "y": -165.84456452388758,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -168.28504610534236,
+                                "y": -170.11399133041908,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -166.1385741038635,
+                                "y": -173.83178989400454,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -162.21677461004737,
+                                "y": -175.57788752668,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            -161.4907063877624,
+                            -168.6698098412322,
+                            13.588679435159918,
+                            13.816155370895615
+                        ],
+                        "centroid": [
+                            -161.49070638776243,
+                            -168.6698098412322
+                        ],
+                        "isSelected": false,
+                        "isHover": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "userData": null,
+                        "radius": 6.946129308585761
+                    }
+                ],
+                "position": [
+                    -161.49070638776243,
+                    -168.66980984123222
+                ],
+                "scaleXY": [
+                    0.27784517234343004,
+                    0.26994616416306566
+                ],
+                "rotation": -60,
+                "bounds": [
+                    -161.4907063877624,
+                    -168.6698098412322,
+                    13.588679435159918,
+                    13.816155370895615
+                ],
+                "isSelected": true,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "linearVelocity": [
+                    0,
+                    0
+                ],
+                "angularVelocity": 0,
+                "isAwake": true,
+                "isActive": true,
+                "gravityScale": 1,
+                "cloneOf": null,
+                "selectedSprite": -1,
+                "sprites": []
+            },
+            {
+                "id": "YU6LWEYDS6BJSUUW",
+                "name": "body_37",
+                "userData": "hide",
+                "shapes": [
+                    {
+                        "id": "L7X90J4UKHUDVG0P",
+                        "name": "shape_40",
+                        "shapeType": 1,
+                        "position": [
+                            -140.95890246357143,
+                            -205.96289638921735
+                        ],
+                        "scaleXY": [
+                            0.8920694019939935,
+                            0.8920694019939935
+                        ],
+                        "rotation": -60,
+                        "vertices": [
+                            {
+                                "x": -129.80803493864653,
+                                "y": -225.2767654908571,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -120.5852537112324,
+                                "y": -215.03382923815906,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -119.14451383235985,
+                                "y": -201.32610494683337,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -126.03612896681082,
+                                "y": -189.38947738775363,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -138.62773637060826,
+                                "y": -183.78333257743964,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -152.1097699884964,
+                                "y": -186.6490272875775,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -161.33255121591054,
+                                "y": -196.8919635402755,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -162.77329109478316,
+                                "y": -210.59968783160127,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -155.8816759603321,
+                                "y": -222.53631539068104,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -143.29006855653466,
+                                "y": -228.14246020099506,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            -140.95890246357152,
+                            -205.96289638921735,
+                            43.62877726242331,
+                            44.35912762355542
+                        ],
+                        "centroid": [
+                            -140.95890246357146,
+                            -205.96289638921735
+                        ],
+                        "isSelected": false,
+                        "isHover": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "userData": null,
+                        "radius": 22.30173504984985
+                    }
+                ],
+                "position": [
+                    -140.85182202367272,
+                    -206.14836515161875
+                ],
+                "scaleXY": [
+                    0.4501305442535551,
+                    0.4501305442535551
+                ],
+                "rotation": -60,
+                "bounds": [
+                    -140.95890246357152,
+                    -205.96289638921735,
+                    43.62877726242331,
+                    44.35912762355542
+                ],
+                "isSelected": true,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "linearVelocity": [
+                    0,
+                    0
+                ],
+                "angularVelocity": 0,
+                "isAwake": true,
+                "isActive": true,
+                "gravityScale": 1,
+                "cloneOf": null,
+                "selectedSprite": -1,
+                "sprites": []
+            },
+            {
+                "id": "28WQRFE8E67E1PM6",
+                "name": "body_37",
+                "userData": "hide",
+                "shapes": [
+                    {
+                        "id": "BSINDHYHN0ALMNQ1",
+                        "name": "shape_41",
+                        "shapeType": 1,
+                        "position": [
+                            -178.76314636122436,
+                            -139.24160976252602
+                        ],
+                        "scaleXY": [
+                            0.8920694019939935,
+                            0.8920694019939935
+                        ],
+                        "rotation": -60,
+                        "vertices": [
+                            {
+                                "x": -167.61227883629934,
+                                "y": -158.55547886416582,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -158.38949760888522,
+                                "y": -148.31254261146785,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -156.9487577300127,
+                                "y": -134.6048183201421,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -163.84037286446375,
+                                "y": -122.6681907610623,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -176.4319802682612,
+                                "y": -117.06204595074828,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -189.9140138861493,
+                                "y": -119.92774066088616,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -199.1367951135634,
+                                "y": -130.1706769135842,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -200.57753499243597,
+                                "y": -143.87840120491012,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -193.68591985798503,
+                                "y": -155.81502876398977,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -181.0943124541875,
+                                "y": -161.4211735743037,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            -178.76314636122433,
+                            -139.241609762526,
+                            43.628777262423284,
+                            44.35912762355542
+                        ],
+                        "centroid": [
+                            -178.76314636122436,
+                            -139.24160976252602
+                        ],
+                        "isSelected": false,
+                        "isHover": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "userData": null,
+                        "radius": 22.30173504984985
+                    }
+                ],
+                "position": [
+                    -178.65606592132565,
+                    -139.42707852492745
+                ],
+                "scaleXY": [
+                    0.4501305442535551,
+                    0.4501305442535551
+                ],
+                "rotation": -60,
+                "bounds": [
+                    -178.76314636122433,
+                    -139.241609762526,
+                    43.628777262423284,
+                    44.35912762355542
+                ],
+                "isSelected": true,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "linearVelocity": [
+                    0,
+                    0
+                ],
+                "angularVelocity": 0,
+                "isAwake": true,
+                "isActive": true,
+                "gravityScale": 1,
+                "cloneOf": null,
+                "selectedSprite": -1,
+                "sprites": []
+            },
+            {
+                "id": "YXI45QS8B5P4LOEM",
+                "name": "body_39",
+                "userData": null,
+                "shapes": [
+                    {
+                        "id": "BLTBZI2L576CZCBY",
+                        "name": "shape_42",
+                        "shapeType": 0,
+                        "position": [
+                            22.356435090765935,
+                            123.19982914698528
+                        ],
+                        "scaleXY": [
+                            8.530601525242156,
+                            0.40738606257981197
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -190.90860304028797,
+                                "y": 113.01517758248994,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 235.62147322181983,
+                                "y": 113.01517758248997,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 235.62147322181983,
+                                "y": 133.3844807114806,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -190.90860304028797,
+                                "y": 133.38448071148062,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            22.356435090765927,
+                            123.19982914698528,
+                            426.5300762621078,
+                            20.36930312899068
+                        ],
+                        "centroid": [
+                            22.356435090765927,
+                            123.19982914698528
+                        ],
+                        "isSelected": false,
+                        "isHover": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "userData": null,
+                        "width": 426.5300762621076,
+                        "height": 20.3693031289906
+                    }
+                ],
+                "position": [
+                    22.356435090765935,
+                    123.19982914698528
+                ],
+                "scaleXY": [
+                    8.530601525242156,
+                    0.40738606257981197
+                ],
+                "rotation": 0,
+                "bounds": [
+                    22.356435090765927,
+                    123.19982914698528,
+                    426.5300762621078,
+                    20.36930312899068
+                ],
+                "isSelected": true,
+                "bodyType": 0,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "linearVelocity": [
+                    0,
+                    0
+                ],
+                "angularVelocity": 0,
+                "isAwake": true,
+                "isActive": true,
+                "gravityScale": 1,
+                "cloneOf": null,
+                "selectedSprite": -1,
+                "sprites": []
+            },
+            {
+                "id": "A3YHZN9GZ54HAX6B",
+                "name": "body_35",
+                "userData": "hide",
+                "shapes": [
+                    {
+                        "id": "EJT3NJS27XGKO8FK",
+                        "name": "shape_43",
+                        "shapeType": 2,
+                        "position": [
+                            40.109575862356195,
+                            -30.758414843393446
+                        ],
+                        "scaleXY": [
+                            1.0761602277957563,
+                            1.0761602277957563
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": 6.983196462205491,
+                                "y": -47.35345519094656,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 84.36995661107713,
+                                "y": -72.05797752771204,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 88.68776578579761,
+                                "y": -63.89245092785546,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 32.85782949025592,
+                                "y": 3.108758675354011,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 25.691299181660117,
+                                "y": 9.627465850294861,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            47.83548112400155,
+                            -31.21525583870859,
+                            81.70456932359212,
+                            81.68544337800691
+                        ],
+                        "centroid": [
+                            47.71800950619925,
+                            -34.11353182417304
+                        ],
+                        "isSelected": false,
+                        "isHover": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "userData": null
+                    }
+                ],
+                "position": [
+                    40.109575862356195,
+                    -30.758414843393446
+                ],
+                "scaleXY": [
+                    0.22866762539687355,
+                    0.22056389091597106
+                ],
+                "rotation": 0,
+                "bounds": [
+                    47.83548112400155,
+                    -31.21525583870859,
+                    81.70456932359212,
+                    81.68544337800691
+                ],
+                "isSelected": true,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "linearVelocity": [
+                    0,
+                    0
+                ],
+                "angularVelocity": 0,
+                "isAwake": true,
+                "isActive": true,
+                "gravityScale": 1,
+                "cloneOf": null,
+                "selectedSprite": -1,
+                "sprites": []
+            },
+            {
+                "id": "ITLU1DACM5YIFBRL",
+                "name": "body_36",
+                "userData": "hide",
+                "shapes": [
+                    {
+                        "id": "Q9VT92HVC88KEPVL",
+                        "name": "shape_44",
+                        "shapeType": 1,
+                        "position": [
+                            25.617711906630156,
+                            5.596942687270076
+                        ],
+                        "scaleXY": [
+                            0.5556903446868601,
+                            0.5398923283261313
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": 39.50997052380163,
+                                "y": 5.596942687270076,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 36.856785218173655,
+                                "y": 13.7626074234765,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 29.910655909587977,
+                                "y": 18.809265771188585,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 21.32476790367238,
+                                "y": 18.809265771188556,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 14.378638595086587,
+                                "y": 13.762607423476494,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 11.725453289458564,
+                                "y": 5.5969426872701025,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 14.378638595086587,
+                                "y": -2.5687220489363423,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 21.32476790367238,
+                                "y": -7.615380396648426,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 29.91065590958798,
+                                "y": -7.615380396648424,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 36.856785218173655,
+                                "y": -2.5687220489363725,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            25.617711906630095,
+                            5.596942687270079,
+                            27.784517234343063,
+                            26.42464616783701
+                        ],
+                        "centroid": [
+                            25.617711906630138,
+                            5.596942687270074
+                        ],
+                        "isSelected": false,
+                        "isHover": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "userData": null,
+                        "radius": 13.892258617171523
+                    }
+                ],
+                "position": [
+                    25.617711906630156,
+                    5.596942687270076
+                ],
+                "scaleXY": [
+                    0.5556903446868601,
+                    0.5398923283261313
+                ],
+                "rotation": 0,
+                "bounds": [
+                    25.617711906630095,
+                    5.596942687270079,
+                    27.784517234343063,
+                    26.42464616783701
+                ],
+                "isSelected": true,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "linearVelocity": [
+                    0,
+                    0
+                ],
+                "angularVelocity": 0,
+                "isAwake": true,
+                "isActive": true,
+                "gravityScale": 1,
+                "cloneOf": null,
+                "selectedSprite": -1,
+                "sprites": []
+            },
+            {
+                "id": "EBQK4NE6IMZBI01X",
+                "name": "body_37",
+                "userData": "hide",
+                "shapes": [
+                    {
+                        "id": "KPWXYCZM8K7C0MAJ",
+                        "name": "shape_45",
+                        "shapeType": 1,
+                        "position": [
+                            110.7430365029948,
+                            3.8659837070258245
+                        ],
+                        "scaleXY": [
+                            1.784138803987987,
+                            1.784138803987987
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": 155.3465066026944,
+                                "y": 3.8659837070258245,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 146.82800182174654,
+                                "y": 30.083245632697547,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 124.52626677189679,
+                                "y": 46.286404594721255,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 96.9598062340928,
+                                "y": 46.28640459472128,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 74.65807118424286,
+                                "y": 30.083245632697576,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 66.13956640329494,
+                                "y": 3.86598370702583,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 74.65807118424286,
+                                "y": -22.351278218645923,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 96.95980623409267,
+                                "y": -38.55443718066968,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 124.52626677189681,
+                                "y": -38.55443718066974,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 146.82800182174654,
+                                "y": -22.35127821864595,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            110.74303650299467,
+                            3.865983707025773,
+                            89.20694019939947,
+                            84.84084177539103
+                        ],
+                        "centroid": [
+                            110.74303650299471,
+                            3.865983707025804
+                        ],
+                        "isSelected": false,
+                        "isHover": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "userData": null,
+                        "radius": 44.6034700996997
+                    }
+                ],
+                "position": [
+                    111.17135826258969,
+                    3.8659837070258245
+                ],
+                "scaleXY": [
+                    0.9002610885071102,
+                    0.9002610885071102
+                ],
+                "rotation": 0,
+                "bounds": [
+                    110.74303650299467,
+                    3.865983707025773,
+                    89.20694019939947,
+                    84.84084177539103
+                ],
+                "isSelected": true,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "linearVelocity": [
+                    0,
+                    0
+                ],
+                "angularVelocity": 0,
+                "isAwake": true,
+                "isActive": true,
+                "gravityScale": 1,
+                "cloneOf": null,
+                "selectedSprite": -1,
+                "sprites": []
+            },
+            {
+                "id": "HMPKN3P2J51VNG3X",
+                "name": "body_37",
+                "userData": "hide",
+                "shapes": [
+                    {
+                        "id": "PBRSKXNQ2A5FRB4T",
+                        "name": "shape_46",
+                        "shapeType": 1,
+                        "position": [
+                            -42.62586577845326,
+                            5.108399161256603
+                        ],
+                        "scaleXY": [
+                            1.784138803987987,
+                            1.784138803987987
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": 1.977604321246396,
+                                "y": 5.108399161256603,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -6.540900459701469,
+                                "y": 31.325661086928353,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -28.842635509551265,
+                                "y": 47.52882004895203,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -56.40909604735521,
+                                "y": 47.52882004895203,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -78.71083109720519,
+                                "y": 31.32566108692839,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -87.22933587815311,
+                                "y": 5.108399161256629,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -78.71083109720513,
+                                "y": -21.108862764415097,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -56.40909604735526,
+                                "y": -37.31202172643894,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -28.84263550955124,
+                                "y": -37.3120217264389,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -6.540900459701469,
+                                "y": -21.10886276441511,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            -42.62586577845336,
+                            5.108399161256543,
+                            89.2069401993995,
+                            84.84084177539097
+                        ],
+                        "centroid": [
+                            -42.625865778453296,
+                            5.108399161256601
+                        ],
+                        "isSelected": false,
+                        "isHover": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "userData": null,
+                        "radius": 44.6034700996997
+                    }
+                ],
+                "position": [
+                    -42.19754401885834,
+                    5.108399161256603
+                ],
+                "scaleXY": [
+                    0.9002610885071102,
+                    0.9002610885071102
+                ],
+                "rotation": 0,
+                "bounds": [
+                    -42.62586577845336,
+                    5.108399161256543,
+                    89.2069401993995,
+                    84.84084177539097
+                ],
+                "isSelected": true,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "linearVelocity": [
+                    0,
+                    0
+                ],
+                "angularVelocity": 0,
+                "isAwake": true,
+                "isActive": true,
+                "gravityScale": 1,
+                "cloneOf": null,
+                "selectedSprite": -1,
+                "sprites": []
+            }
+        ],
+        "joints": [
+            {
+                "id": "9DPG4TWQCDA95M3J",
+                "name": "joint_1",
+                "bodyIndexA": 0,
+                "bodyIndexB": 1,
+                "localAnchorA": [
+                    -161.49070638776243,
+                    -168.66980984123222
+                ],
+                "localAnchorB": [
+                    -161.49070638776243,
+                    -168.66980984123222
+                ],
+                "userData": null,
+                "collideConnected": false,
+                "jointType": 2,
+                "position": [
+                    -161.49070638776243,
+                    -168.66980984123222
+                ],
+                "scaleXY": [
+                    0.5,
+                    0.5
+                ],
+                "isSelected": true,
+                "inEditMode": false,
+                "enableLimit": false,
+                "enableMotor": false,
+                "lowerAngle": 0,
+                "upperAngle": 0,
+                "maxMotorTorque": 100,
+                "motorSpeed": 100,
+                "referenceAngle": 0
+            },
+            {
+                "id": "34I5QZJZUMEZF5JM",
+                "name": "joint_4",
+                "bodyIndexA": 0,
+                "bodyIndexB": 3,
+                "localAnchorA": [
+                    -178.65606592132565,
+                    -139.42707852492745
+                ],
+                "localAnchorB": [
+                    -178.65606592132565,
+                    -139.42707852492745
+                ],
+                "userData": null,
+                "collideConnected": false,
+                "jointType": 3,
+                "position": [
+                    -178.65606592132565,
+                    -139.42707852492745
+                ],
+                "scaleXY": [
+                    0.5,
+                    0.5
+                ],
+                "isSelected": true,
+                "inEditMode": false,
+                "localAxisA": [
+                    0,
+                    1
+                ],
+                "enableMotor": false,
+                "maxMotorTorque": 100,
+                "motorSpeed": 100,
+                "frequencyHZ": 60,
+                "dampingRatio": 1
+            },
+            {
+                "id": "MBOSCM0SDD2I9RRH",
+                "name": "joint_5",
+                "bodyIndexA": 0,
+                "bodyIndexB": 2,
+                "localAnchorA": [
+                    -140.85182202367272,
+                    -206.14836515161875
+                ],
+                "localAnchorB": [
+                    -140.85182202367272,
+                    -206.14836515161875
+                ],
+                "userData": null,
+                "collideConnected": false,
+                "jointType": 3,
+                "position": [
+                    -140.85182202367272,
+                    -206.14836515161875
+                ],
+                "scaleXY": [
+                    0.5,
+                    0.5
+                ],
+                "isSelected": true,
+                "inEditMode": false,
+                "localAxisA": [
+                    0,
+                    1
+                ],
+                "enableMotor": false,
+                "maxMotorTorque": 100,
+                "motorSpeed": 100,
+                "frequencyHZ": 60,
+                "dampingRatio": 1
+            },
+            {
+                "id": "9DPG4TWQCDA95M3J",
+                "name": "joint_3",
+                "bodyIndexA": 5,
+                "bodyIndexB": 6,
+                "localAnchorA": [
+                    25.617711906630156,
+                    5.596942687270076
+                ],
+                "localAnchorB": [
+                    25.617711906630156,
+                    5.596942687270076
+                ],
+                "userData": null,
+                "collideConnected": false,
+                "jointType": 2,
+                "position": [
+                    25.617711906630156,
+                    5.596942687270076
+                ],
+                "scaleXY": [
+                    1,
+                    1
+                ],
+                "isSelected": true,
+                "inEditMode": false,
+                "enableLimit": false,
+                "enableMotor": false,
+                "lowerAngle": 0,
+                "upperAngle": 0,
+                "maxMotorTorque": 100,
+                "motorSpeed": 100,
+                "referenceAngle": 0
+            },
+            {
+                "id": "34I5QZJZUMEZF5JM",
+                "name": "joint_4",
+                "bodyIndexA": 5,
+                "bodyIndexB": 8,
+                "localAnchorA": [
+                    -42.19754401885834,
+                    5.108399161256603
+                ],
+                "localAnchorB": [
+                    -42.19754401885834,
+                    5.108399161256603
+                ],
+                "userData": null,
+                "collideConnected": false,
+                "jointType": 3,
+                "position": [
+                    -42.19754401885834,
+                    5.108399161256603
+                ],
+                "scaleXY": [
+                    1,
+                    1
+                ],
+                "isSelected": true,
+                "inEditMode": false,
+                "localAxisA": [
+                    0,
+                    1
+                ],
+                "enableMotor": false,
+                "maxMotorTorque": 100,
+                "motorSpeed": 100,
+                "frequencyHZ": 60,
+                "dampingRatio": 1
+            },
+            {
+                "id": "MBOSCM0SDD2I9RRH",
+                "name": "joint_5",
+                "bodyIndexA": 5,
+                "bodyIndexB": 7,
+                "localAnchorA": [
+                    111.17135826258969,
+                    3.8659837070258245
+                ],
+                "localAnchorB": [
+                    111.17135826258969,
+                    3.8659837070258245
+                ],
+                "userData": null,
+                "collideConnected": false,
+                "jointType": 3,
+                "position": [
+                    111.17135826258969,
+                    3.8659837070258245
+                ],
+                "scaleXY": [
+                    1,
+                    1
+                ],
+                "isSelected": true,
+                "inEditMode": false,
+                "localAxisA": [
+                    0,
+                    1
+                ],
+                "enableMotor": false,
+                "maxMotorTorque": 100,
+                "motorSpeed": 100,
+                "frequencyHZ": 60,
+                "dampingRatio": 1
+            }
+        ],
+        "particles": [],
+        "world": {
+            "gravity": [
+                0,
+                9.8
+            ],
+            "allowSleep": true,
+            "debugDraw": true,
+            "drawScale": 30,
+            "drawSprites": true
+        }
+    }
+}

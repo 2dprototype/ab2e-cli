@@ -1,0 +1,3342 @@
+{
+    "bodies": [
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                93.37453597570538,
+                166.7985479754375
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                107.59791560533495,
+                166.91911124704242
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                36.91045602856746,
+                166.41528765666567
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                50.89270911498718,
+                166.29472438506073
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                8.499238821777325,
+                166.41528765666567
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                22.72261845140695,
+                166.5358509282706
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                -19.603577536247386,
+                166.41528765666567
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                -5.62132444982764,
+                166.29472438506073
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                93.9632238253389,
+                116.17139290695758
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                108.18660345496846,
+                116.29195617856251
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                37.49914387820092,
+                115.78813258818579
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                51.481396964620664,
+                115.66756931658085
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                9.087926671410841,
+                115.78813258818579
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                23.311306301040467,
+                115.90869585979073
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                -19.014889686613927,
+                115.78813258818579
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                -5.032636600194124,
+                115.66756931658085
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                137.90986171173677,
+                141.83324594660218
+            ],
+            "rotation": -88.707900341646,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                133.92399088667412,
+                156.21286288108914
+            ],
+            "rotation": -59.27350785997166,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                134.83191105338426,
+                127.3754408382967
+            ],
+            "rotation": -116.96491712405339,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                122.34428791827605,
+                165.20990984804493
+            ],
+            "rotation": -12.178479889292802,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                123.15661046496598,
+                118.41535036099731
+            ],
+            "rotation": -162.8825693954654,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                65.01327238659212,
+                166.41528765666567
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                78.92095053378398,
+                166.5358509282706
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                65.60196023622561,
+                115.78813258818579
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                79.8253398658552,
+                115.90869585979073
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                -48.74362609310506,
+                141.10171012242571
+            ],
+            "rotation": 90.65792884355709,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                -44.917155070487375,
+                126.67885780640529
+            ],
+            "rotation": 120.09232132523145,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                -45.50584292012086,
+                155.52456243844617
+            ],
+            "rotation": 62.4009120611497,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                -33.43774200263439,
+                117.55419613708625
+            ],
+            "rotation": 167.18734929591045,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 13.11060637937401,
+                            "height": 5.600670067989274
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                -33.73208592745109,
+                164.35488018294848
+            ],
+            "rotation": 16.483259789737662,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 1,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "radius": 10.365216906508072
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                -23.29984355905303,
+                141.362853559564
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 1,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "radius": 10.365216906508072
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                112.45958026905214,
+                142.43668255506208
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 0,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 1596.182555432963,
+                            "height": 19.889540491455833
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                494.8119195698018,
+                203.86474086527346
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    96.71672377952686,
+                                    24.20463213445808
+                                ],
+                                [
+                                    96.42112257766271,
+                                    36.27148539785182
+                                ],
+                                [
+                                    78.1967661333185,
+                                    28.07262517276652
+                                ]
+                            ]
+                        },
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    -95.19993576667328,
+                                    -4.146692571230531
+                                ],
+                                [
+                                    -78.18914094326003,
+                                    28.130200170630417
+                                ],
+                                [
+                                    -88.22114814681149,
+                                    32.92811665928532
+                                ]
+                            ]
+                        },
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    -88.22114814681149,
+                                    32.92811665928532
+                                ],
+                                [
+                                    -96.21524834287679,
+                                    43.39682755773073
+                                ],
+                                [
+                                    -95.19993576667328,
+                                    -4.146692571230531
+                                ]
+                            ]
+                        },
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    -95.19993576667328,
+                                    -4.146692571230531
+                                ],
+                                [
+                                    -78.33210506698087,
+                                    -28.566903865524438
+                                ],
+                                [
+                                    26.74490698096219,
+                                    -29.236867477031097
+                                ],
+                                [
+                                    78.19676613331845,
+                                    -5.425555402570211
+                                ],
+                                [
+                                    96.71672377952686,
+                                    24.20463213445808
+                                ],
+                                [
+                                    78.1967661333185,
+                                    28.07262517276652
+                                ],
+                                [
+                                    -78.18914094326003,
+                                    28.130200170630417
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                42.5063813299271,
+                80.87233357412285
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    -7.94583286182683,
+                                    -7.4603202321430615
+                                ],
+                                [
+                                    2.2992457487384854,
+                                    -1.275161258375448
+                                ],
+                                [
+                                    -0.5240478078059141,
+                                    6.1349290234785485
+                                ],
+                                [
+                                    -8.41638178791743,
+                                    7.902117301697899
+                                ],
+                                [
+                                    -12.105735408947908,
+                                    1.2964084374799825
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                411.3107112883028,
+                173.14873352027791
+            ],
+            "rotation": 34.94293465024115,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    -7.945832861826716,
+                                    -7.46032023214309
+                                ],
+                                [
+                                    2.2992457487384854,
+                                    -1.275161258375448
+                                ],
+                                [
+                                    -0.5240478078056867,
+                                    6.13492902347852
+                                ],
+                                [
+                                    -8.41638178791726,
+                                    7.9021173016977855
+                                ],
+                                [
+                                    -12.10573540894768,
+                                    1.2964084374798972
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                395.3400489288949,
+                176.4830755050599
+            ],
+            "rotation": 34.94293465024115,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    -7.945832861826659,
+                                    -7.46032023214309
+                                ],
+                                [
+                                    2.2992457487385423,
+                                    -1.2751612583753342
+                                ],
+                                [
+                                    -0.5240478078056867,
+                                    6.1349290234785485
+                                ],
+                                [
+                                    -8.416381787917146,
+                                    7.902117301697814
+                                ],
+                                [
+                                    -12.105735408947453,
+                                    1.2964084374799825
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                377.8784616717616,
+                177.07056248727795
+            ],
+            "rotation": 34.94293465024115,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 1,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "radius": 10.365216906508072
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                20.949546808150636,
+                142.09424844166656
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 1,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "radius": 10.365216906508072
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                66.2960294985082,
+                142.09424844166656
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    -7.94583286182683,
+                                    -7.4603202321430615
+                                ],
+                                [
+                                    2.2992457487384854,
+                                    -1.275161258375448
+                                ],
+                                [
+                                    -0.5240478078059141,
+                                    6.1349290234785485
+                                ],
+                                [
+                                    -8.41638178791743,
+                                    7.902117301697899
+                                ],
+                                [
+                                    -12.105735408947908,
+                                    1.2964084374799825
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                357.4457880958864,
+                173.14873352027791
+            ],
+            "rotation": 34.94293465024115,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    -7.945832861826716,
+                                    -7.46032023214309
+                                ],
+                                [
+                                    2.2992457487384854,
+                                    -1.275161258375448
+                                ],
+                                [
+                                    -0.5240478078056867,
+                                    6.13492902347852
+                                ],
+                                [
+                                    -8.416381787917203,
+                                    7.902117301697757
+                                ],
+                                [
+                                    -12.10573540894768,
+                                    1.2964084374798972
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                341.4751257364785,
+                176.4830755050599
+            ],
+            "rotation": 34.94293465024115,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    -7.945832861826659,
+                                    -7.460320232143005
+                                ],
+                                [
+                                    2.2992457487385423,
+                                    -1.2751612583753342
+                                ],
+                                [
+                                    -0.5240478078057436,
+                                    6.134929023478577
+                                ],
+                                [
+                                    -8.416381787917203,
+                                    7.902117301697842
+                                ],
+                                [
+                                    -12.10573540894751,
+                                    1.296408437479954
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                324.01353847934524,
+                177.07056248727795
+            ],
+            "rotation": 34.94293465024115,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 82.29991403027385,
+                            "height": 6.344369324639723
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                87.67302104597451,
+                43.84421356545942
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    -26.246744975277636,
+                                    -9.064725796661001
+                                ],
+                                [
+                                    15.90144426117778,
+                                    -8.880868103874434
+                                ],
+                                [
+                                    31.729045433483904,
+                                    1.8998751197515205
+                                ],
+                                [
+                                    31.729045433483904,
+                                    18.658751598521924
+                                ],
+                                [
+                                    -31.729045433483893,
+                                    18.65875159852194
+                                ],
+                                [
+                                    -32.52554311964403,
+                                    3.9111662986068083
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                14.173231376480615,
+                32.62241571529551
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 50,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 52.420998040466756,
+                            "height": 65.30622775689875
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                1216.5835960706072,
+                143.63006702470182
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        }
+    ],
+    "joints": [
+        {
+            "_localAnchorA": [
+                16.315018009189814,
+                115.85272555345591
+            ],
+            "_localAnchorB": [
+                16.315018009189814,
+                115.85272555345591
+            ],
+            "localAnchorA": [
+                7.2270913377789725,
+                0.0645929652701227
+            ],
+            "localAnchorB": [
+                -6.996288291850654,
+                -0.05597030633481381
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 12,
+            "bodyB": 13
+        },
+        {
+            "_localAnchorA": [
+                30.475505511895555,
+                115.90869585979073
+            ],
+            "_localAnchorB": [
+                30.475505511895555,
+                115.90869585979073
+            ],
+            "localAnchorA": [
+                -7.023638366305363,
+                0.12056327160493652
+            ],
+            "localAnchorB": [
+                7.164199210855088,
+                0
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 10,
+            "bodyB": 13
+        },
+        {
+            "_localAnchorA": [
+                44.3781136097711,
+                115.82542005779973
+            ],
+            "_localAnchorB": [
+                44.3781136097711,
+                115.82542005779973
+            ],
+            "localAnchorA": [
+                6.87896973157018,
+                0.03728746961394336
+            ],
+            "localAnchorB": [
+                -7.103283354849566,
+                0.15785074121887988
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 10,
+            "bodyB": 11
+        },
+        {
+            "_localAnchorA": [
+                58.814378363813795,
+                115.78813258818579
+            ],
+            "_localAnchorB": [
+                58.814378363813795,
+                115.78813258818579
+            ],
+            "localAnchorA": [
+                7.33298139919313,
+                0.12056327160493652
+            ],
+            "localAnchorB": [
+                -6.787581872411813,
+                0
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 11,
+            "bodyB": 23
+        },
+        {
+            "_localAnchorA": [
+                86.612921738267,
+                116.22439734222849
+            ],
+            "_localAnchorB": [
+                86.612921738267,
+                116.22439734222849
+            ],
+            "localAnchorA": [
+                -7.350302087071896,
+                0.053004435270906924
+            ],
+            "localAnchorB": [
+                6.787581872411806,
+                0.31570148243775975
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 8,
+            "bodyB": 24
+        },
+        {
+            "_localAnchorA": [
+                72.7220565110056,
+                115.90869585979073
+            ],
+            "_localAnchorB": [
+                72.7220565110056,
+                115.90869585979073
+            ],
+            "localAnchorA": [
+                7.120096274779996,
+                0.12056327160493652
+            ],
+            "localAnchorB": [
+                -7.103283354849594,
+                0
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 23,
+            "bodyB": 24
+        },
+        {
+            "_localAnchorA": [
+                101.08332010011884,
+                116.4498069197814
+            ],
+            "_localAnchorB": [
+                101.08332010011884,
+                116.4498069197814
+            ],
+            "localAnchorA": [
+                7.1200962747799394,
+                0.2784140128238164
+            ],
+            "localAnchorB": [
+                -7.103283354849623,
+                0.15785074121887988
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 8,
+            "bodyB": 9
+        },
+        {
+            "_localAnchorA": [
+                116.05332711011636,
+                116.52114146637075
+            ],
+            "_localAnchorB": [
+                116.05332711011636,
+                116.52114146637075
+            ],
+            "localAnchorA": [
+                7.866723655147894,
+                0.22918528780823522
+            ],
+            "localAnchorB": [
+                7.3461574438279085,
+                -0.28041498936022363
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 9,
+            "bodyB": 20
+        },
+        {
+            "_localAnchorA": [
+                130.7334460434722,
+                121.25666370293715
+            ],
+            "_localAnchorB": [
+                130.7334460434722,
+                121.25666370293715
+            ],
+            "localAnchorA": [
+                7.31199806035858,
+                -0.8783697598304183
+            ],
+            "localAnchorB": [
+                -8.077495248522515,
+                -0.4853549226075848
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 18,
+            "bodyB": 20
+        },
+        {
+            "_localAnchorA": [
+                137.83107513654295,
+                134.00517196948962
+            ],
+            "_localAnchorB": [
+                137.83107513654295,
+                134.00517196948962
+            ],
+            "localAnchorA": [
+                7.824306921470602,
+                -0.2552855542421636
+            ],
+            "localAnchorB": [
+                -7.268931021842139,
+                -0.33310939542249146
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 16,
+            "bodyB": 18
+        },
+        {
+            "_localAnchorA": [
+                137.39670719348953,
+                150.2145347147717
+            ],
+            "_localAnchorB": [
+                137.39670719348953,
+                150.2145347147717
+            ],
+            "localAnchorA": [
+                -8.390729010512525,
+                -0.3240303183125106
+            ],
+            "localAnchorB": [
+                6.9306107584481556,
+                -0.0795855096198537
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 16,
+            "bodyB": 17
+        },
+        {
+            "_localAnchorA": [
+                129.60542201434453,
+                162.9999994709806
+            ],
+            "_localAnchorB": [
+                129.60542201434453,
+                162.9999994709806
+            ],
+            "localAnchorA": [
+                -8.040863472821798,
+                -0.24448886751329668
+            ],
+            "localAnchorB": [
+                7.563921250856833,
+                -0.6283848713814607
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 17,
+            "bodyB": 19
+        },
+        {
+            "_localAnchorA": [
+                114.92530308098867,
+                166.78841726023373
+            ],
+            "_localAnchorB": [
+                114.92530308098867,
+                166.78841726023373
+            ],
+            "localAnchorA": [
+                7.3273874756537225,
+                -0.13069398680869426
+            ],
+            "localAnchorB": [
+                -7.585020295850357,
+                -0.022108319095823486
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 1,
+            "bodyB": 19
+        },
+        {
+            "_localAnchorA": [
+                100.33678150926653,
+                166.91911124704242
+            ],
+            "_localAnchorB": [
+                100.33678150926653,
+                166.91911124704242
+            ],
+            "localAnchorA": [
+                6.962245533561145,
+                0.12056327160493652
+            ],
+            "localAnchorB": [
+                -7.261134096068417,
+                0
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 0,
+            "bodyB": 1
+        },
+        {
+            "_localAnchorA": [
+                85.70853240619579,
+                166.85155241070836
+            ],
+            "_localAnchorB": [
+                85.70853240619579,
+                166.85155241070836
+            ],
+            "localAnchorA": [
+                -7.6660035695095985,
+                0.0530044352708785
+            ],
+            "localAnchorB": [
+                6.787581872411806,
+                0.31570148243775975
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 0,
+            "bodyB": 22
+        },
+        {
+            "_localAnchorA": [
+                71.65981643771548,
+                166.37800018705173
+            ],
+            "_localAnchorB": [
+                71.65981643771548,
+                166.37800018705173
+            ],
+            "localAnchorA": [
+                6.646544051123357,
+                -0.03728746961394336
+            ],
+            "localAnchorB": [
+                -7.261134096068503,
+                -0.15785074121887988
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 21,
+            "bodyB": 22
+        },
+        {
+            "_localAnchorA": [
+                57.90998903174252,
+                166.73098913910343
+            ],
+            "_localAnchorB": [
+                57.90998903174252,
+                166.73098913910343
+            ],
+            "localAnchorA": [
+                7.017279916755342,
+                0.43626475404269627
+            ],
+            "localAnchorB": [
+                -7.1032833548496015,
+                0.31570148243775975
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 3,
+            "bodyB": 21
+        },
+        {
+            "_localAnchorA": [
+                43.78942576013764,
+                166.29472438506073
+            ],
+            "_localAnchorB": [
+                43.78942576013764,
+                166.29472438506073
+            ],
+            "localAnchorA": [
+                6.87896973157018,
+                -0.12056327160493652
+            ],
+            "localAnchorB": [
+                -7.1032833548495375,
+                0
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 2,
+            "bodyB": 3
+        },
+        {
+            "_localAnchorA": [
+                29.352349582599906,
+                166.69370166948949
+            ],
+            "_localAnchorB": [
+                29.352349582599906,
+                166.69370166948949
+            ],
+            "localAnchorA": [
+                -7.558106445967553,
+                0.2784140128238164
+            ],
+            "localAnchorB": [
+                6.629731131192955,
+                0.15785074121887988
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 2,
+            "bodyB": 5
+        },
+        {
+            "_localAnchorA": [
+                15.303633614119619,
+                166.37800018705173
+            ],
+            "_localAnchorB": [
+                15.303633614119619,
+                166.37800018705173
+            ],
+            "localAnchorA": [
+                6.804394792342293,
+                -0.03728746961394336
+            ],
+            "localAnchorB": [
+                -7.418984837287333,
+                -0.15785074121887988
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 4,
+            "bodyB": 5
+        },
+        {
+            "_localAnchorA": [
+                1.4819589050219832,
+                166.6104258674985
+            ],
+            "_localAnchorB": [
+                1.4819589050219832,
+                166.6104258674985
+            ],
+            "localAnchorA": [
+                -7.017279916755342,
+                0.19513821083282323
+            ],
+            "localAnchorB": [
+                7.103283354849623,
+                0.31570148243775975
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 4,
+            "bodyB": 7
+        },
+        {
+            "_localAnchorA": [
+                -13.040309287114965,
+                166.4525751262796
+            ],
+            "_localAnchorB": [
+                -13.040309287114965,
+                166.4525751262796
+            ],
+            "localAnchorA": [
+                6.56326824913242,
+                0.03728746961394336
+            ],
+            "localAnchorB": [
+                -7.418984837287326,
+                0.15785074121887988
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 6,
+            "bodyB": 7
+        },
+        {
+            "_localAnchorA": [
+                1.9127960134365907,
+                115.82542005779973
+            ],
+            "_localAnchorB": [
+                1.9127960134365907,
+                115.82542005779973
+            ],
+            "localAnchorA": [
+                -7.17513065797425,
+                0.03728746961394336
+            ],
+            "localAnchorB": [
+                6.9454326136307145,
+                0.15785074121887988
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 12,
+            "bodyB": 15
+        },
+        {
+            "_localAnchorA": [
+                -12.135919955043718,
+                115.50971857536197
+            ],
+            "_localAnchorB": [
+                -12.135919955043718,
+                115.50971857536197
+            ],
+            "localAnchorA": [
+                6.8789697315702085,
+                -0.2784140128238164
+            ],
+            "localAnchorB": [
+                -7.103283354849594,
+                -0.15785074121887988
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 14,
+            "bodyB": 15
+        },
+        {
+            "_localAnchorA": [
+                -26.808010871441432,
+                116.13353946611633
+            ],
+            "_localAnchorB": [
+                -26.808010871441432,
+                116.13353946611633
+            ],
+            "localAnchorA": [
+                -7.7931211848275055,
+                0.34540687793054303
+            ],
+            "localAnchorB": [
+                -6.77970379116511,
+                -0.08495147286413643
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 14,
+            "bodyB": 28
+        },
+        {
+            "_localAnchorA": [
+                -40.54102535748398,
+                120.23765873780721
+            ],
+            "_localAnchorB": [
+                -40.54102535748398,
+                120.23765873780721
+            ],
+            "localAnchorA": [
+                -7.767214021098534,
+                -0.5567252974226248
+            ],
+            "localAnchorB": [
+                7.521509404046253,
+                -1.0413943698691523
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 26,
+            "bodyB": 28
+        },
+        {
+            "_localAnchorA": [
+                -48.38987137730273,
+                133.62429042003598
+            ],
+            "_localAnchorB": [
+                -48.38987137730273,
+                133.62429042003598
+            ],
+            "localAnchorA": [
+                -7.480988806893706,
+                -0.26786988589561234
+            ],
+            "localAnchorB": [
+                7.750519503221208,
+                -0.4777448778309967
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 25,
+            "bodyB": 26
+        },
+        {
+            "_localAnchorA": [
+                -48.66285774449843,
+                149.21053278969097
+            ],
+            "_localAnchorB": [
+                -48.66285774449843,
+                149.21053278969097
+            ],
+            "localAnchorA": [
+                8.107360614508135,
+                -0.1738747871710511
+            ],
+            "localAnchorB": [
+                -7.05815015387075,
+                -0.12739470991250193
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 25,
+            "bodyB": 27
+        },
+        {
+            "_localAnchorA": [
+                -27.10235479625819,
+                166.09123833635616
+            ],
+            "_localAnchorB": [
+                -27.10235479625819,
+                166.09123833635616
+            ],
+            "localAnchorA": [
+                -7.4987772600108045,
+                -0.3240493203095127
+            ],
+            "localAnchorB": [
+                6.849932832569379,
+                -0.21608956037168262
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 6,
+            "bodyB": 29
+        },
+        {
+            "_localAnchorA": [
+                -40.99322002351959,
+                161.51356684100864
+            ],
+            "_localAnchorB": [
+                -40.99322002351959,
+                161.51356684100864
+            ],
+            "localAnchorA": [
+                7.398137941729362,
+                -1.2245383358585211
+            ],
+            "localAnchorB": [
+                -7.768901497859877,
+                -0.664303684111737
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 2,
+            "enableLimit": false,
+            "enableMotor": false,
+            "lowerAngle": 0,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 0,
+            "bodyA": 27,
+            "bodyB": 29
+        },
+        {
+            "_localAnchorA": [
+                112.45958026905214,
+                142.4366825550621
+            ],
+            "_localAnchorB": [
+                112.45958026905214,
+                142.4366825550621
+            ],
+            "localAnchorA": [
+                69.95319893912503,
+                61.56434898093926
+            ],
+            "localAnchorB": [
+                0,
+                2.842170943040401e-14
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 3,
+            "localAxisA": [
+                0,
+                1
+            ],
+            "enableMotor": false,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "frequencyHZ": 60,
+            "dampingRatio": 1,
+            "bodyA": 33,
+            "bodyB": 31
+        },
+        {
+            "_localAnchorA": [
+                -23.29984355905303,
+                141.36285355956403
+            ],
+            "_localAnchorB": [
+                -23.29984355905303,
+                141.36285355956403
+            ],
+            "localAnchorA": [
+                -65.80622488898013,
+                60.49051998544118
+            ],
+            "localAnchorB": [
+                0,
+                2.842170943040401e-14
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 3,
+            "localAxisA": [
+                0,
+                1
+            ],
+            "enableMotor": true,
+            "maxMotorTorque": 70,
+            "motorSpeed": 70,
+            "frequencyHZ": 60,
+            "dampingRatio": 1,
+            "bodyA": 33,
+            "bodyB": 30
+        },
+        {
+            "_localAnchorA": [
+                20.949546808150636,
+                142.09424844166656
+            ],
+            "_localAnchorB": [
+                20.949546808150636,
+                142.09424844166656
+            ],
+            "localAnchorA": [
+                -21.556834521776466,
+                61.22191486754372
+            ],
+            "localAnchorB": [
+                0,
+                0
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 3,
+            "localAxisA": [
+                0,
+                1
+            ],
+            "enableMotor": false,
+            "maxMotorTorque": 250,
+            "motorSpeed": 250,
+            "frequencyHZ": 60,
+            "dampingRatio": 1,
+            "bodyA": 33,
+            "bodyB": 37
+        },
+        {
+            "_localAnchorA": [
+                66.29602949850818,
+                142.09424844166656
+            ],
+            "_localAnchorB": [
+                66.29602949850818,
+                142.09424844166656
+            ],
+            "localAnchorA": [
+                23.789648168581074,
+                61.22191486754372
+            ],
+            "localAnchorB": [
+                -2.842170943040401e-14,
+                0
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 3,
+            "localAxisA": [
+                0,
+                1
+            ],
+            "enableMotor": false,
+            "maxMotorTorque": 250,
+            "motorSpeed": 250,
+            "frequencyHZ": 60,
+            "dampingRatio": 1,
+            "bodyA": 33,
+            "bodyB": 38
+        },
+        {
+            "_localAnchorA": [
+                14.173231376480615,
+                32.62241571529551
+            ],
+            "_localAnchorB": [
+                14.173231376480615,
+                32.62241571529551
+            ],
+            "localAnchorA": [
+                -28.333149953446487,
+                -48.24991785882734
+            ],
+            "localAnchorB": [
+                0,
+                0
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 1,
+            "referenceAngle": 0,
+            "bodyA": 33,
+            "bodyB": 43
+        },
+        {
+            "_localAnchorA": [
+                14.173231376480615,
+                32.62241571529551
+            ],
+            "_localAnchorB": [
+                14.173231376480615,
+                32.62241571529551
+            ],
+            "localAnchorA": [
+                -73.4997896694939,
+                -11.22179785016391
+            ],
+            "localAnchorB": [
+                0,
+                0
+            ],
+            "userData": null,
+            "collideConnected": false,
+            "jointType": 1,
+            "referenceAngle": 0,
+            "bodyA": 42,
+            "bodyB": 43
+        }
+    ],
+    "particles": [],
+    "sprites": [],
+    "world": {
+        "gravity": [
+            0,
+            9.8
+        ],
+        "allowSleep": true,
+        "debugDraw": true,
+        "drawScale": 30,
+        "drawSprites": true
+    }
+}

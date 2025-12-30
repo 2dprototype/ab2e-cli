@@ -1,0 +1,418 @@
+{
+    "bodies": [
+        {
+            "type": 0,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 329.3696399074256,
+                            "height": 21.899898385225047
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                -9,
+                32.5
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "width": 50,
+                            "height": 50
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                -113,
+                -28.5
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 1,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [],
+                            "radius": 12.5
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                -49,
+                -89.5
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    -30,
+                                    3
+                                ],
+                                [
+                                    -25,
+                                    -25
+                                ],
+                                [
+                                    -11.000000000000007,
+                                    -23
+                                ],
+                                [
+                                    -12,
+                                    8
+                                ]
+                            ]
+                        },
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    25,
+                                    25
+                                ],
+                                [
+                                    6,
+                                    36
+                                ],
+                                [
+                                    -25,
+                                    25
+                                ],
+                                [
+                                    -30,
+                                    3
+                                ],
+                                [
+                                    -12,
+                                    8
+                                ],
+                                [
+                                    6,
+                                    13
+                                ]
+                            ]
+                        },
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    43,
+                                    3
+                                ],
+                                [
+                                    25,
+                                    25
+                                ],
+                                [
+                                    6,
+                                    13
+                                ],
+                                [
+                                    21,
+                                    0
+                                ]
+                            ]
+                        },
+                        {
+                            "type": 2,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    21,
+                                    0
+                                ],
+                                [
+                                    25,
+                                    -25
+                                ],
+                                [
+                                    46,
+                                    -19
+                                ],
+                                [
+                                    43,
+                                    3
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                29,
+                -70.5
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 2,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 3,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    -25,
+                                    -25
+                                ],
+                                [
+                                    25,
+                                    -25
+                                ],
+                                [
+                                    25,
+                                    25
+                                ],
+                                [
+                                    -25,
+                                    25
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                125,
+                -134.5
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        },
+        {
+            "type": 0,
+            "userData": null,
+            "fixtures": [
+                {
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "userData": null,
+                    "restitution": 0.25,
+                    "friction": 1,
+                    "density": 1,
+                    "shapes": [
+                        {
+                            "type": 5,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "vertices": [
+                                [
+                                    52,
+                                    -99
+                                ],
+                                [
+                                    73,
+                                    -50.99999999999999
+                                ],
+                                [
+                                    63,
+                                    -10
+                                ],
+                                [
+                                    38,
+                                    13.999999999999998
+                                ],
+                                [
+                                    21,
+                                    31
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "position": [
+                130,
+                -10.5
+            ],
+            "rotation": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "gravityScale": 1,
+            "linearVelocity": [
+                0,
+                0
+            ],
+            "angularVelocity": 0,
+            "isAwake": true,
+            "isActive": true
+        }
+    ],
+    "joints": [],
+    "particles": [],
+    "sprites": [],
+    "world": {
+        "gravity": [
+            0,
+            9.8
+        ],
+        "allowSleep": true,
+        "debugDraw": true,
+        "drawScale": 30,
+        "drawSprites": true
+    }
+}
