@@ -9,7 +9,9 @@ Usage:
   ab2e encode -i <input.json> -o <output.bin>
   ab2e decode -i <input.bin> -o <output.json>
   ab2e draw [-t bin|json] <scene_file>
-  ab2e <scene_file>             (auto-detect format)
+  ab2e <scene_file>
+  ab2e config [-reset|-show]
+  ab2e version
   ab2e help
 
 Commands:
