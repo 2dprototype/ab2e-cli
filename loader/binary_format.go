@@ -1,6 +1,5 @@
 package loader
 
-
 import (
 	"bytes"
 	"encoding/binary"
@@ -9,8 +8,8 @@ import (
 	"io"
 )
 
-// Magic header to identify file type: "SCN" + version 1
-var MagicHeader = []byte{'S', 'C', 'N', 1}
+// Magic header to identify file type: "SCN" + version 2 (Bumped version for schema change)
+var MagicHeader = []byte{'S', 'C', 'N', 2}
 
 type BinaryStream struct {
 	r io.Reader
@@ -23,7 +22,6 @@ func (bs *BinaryStream) write(data interface{}) error {
 }
 
 func (bs *BinaryStream) writeString(v interface{}) error {
-	// Simple strategy: Convert UserData interface to JSON bytes, write Length + Bytes
 	var b []byte
 	if v != nil {
 		b, _ = json.Marshal(v)
@@ -56,9 +54,8 @@ func (bs *BinaryStream) readString() (interface{}, error) {
 		return nil, err
 	}
 	var res interface{}
-	// Try unmarshal back to interface
 	if err := json.Unmarshal(buf, &res); err != nil {
-		return string(buf), nil // Fallback
+		return string(buf), nil
 	}
 	return res, nil
 }
@@ -94,8 +91,7 @@ func Encode(scene *Scene, w io.Writer) error {
 	}
 	for _, b := range scene.Bodies {
 		if err := bs.write(b.Type); err != nil { return err }
-		
-		// Bit Packing Body Flags
+
 		flags := uint8(0)
 		if b.IsBullet { flags |= 1 << 0 }
 		if b.IsFixedRotation { flags |= 1 << 1 }
@@ -119,7 +115,7 @@ func Encode(scene *Scene, w io.Writer) error {
 			fFlags := uint8(0)
 			if f.IsSensor { fFlags |= 1 << 0 }
 			if err := bs.write(fFlags); err != nil { return err }
-			
+
 			if err := bs.write(f.MaskBits); err != nil { return err }
 			if err := bs.write(f.CategoryBits); err != nil { return err }
 			if err := bs.write(f.GroupIndex); err != nil { return err }
@@ -132,13 +128,12 @@ func Encode(scene *Scene, w io.Writer) error {
 			// Shapes
 			if err := bs.write(uint8(len(f.Shapes))); err != nil { return err }
 			for _, s := range f.Shapes {
-				if err := bs.write(int8(s.Type)); err != nil { return err } // type as byte
+				if err := bs.write(int8(s.Type)); err != nil { return err }
 				if err := bs.write(s.Position); err != nil { return err }
 				if err := bs.write(s.Width); err != nil { return err }
 				if err := bs.write(s.Height); err != nil { return err }
 				if err := bs.write(s.Radius); err != nil { return err }
-				
-				// Vertices
+
 				if err := bs.write(uint16(len(s.Vertices))); err != nil { return err }
 				for _, v := range s.Vertices {
 					if err := bs.write(v); err != nil { return err }
@@ -150,21 +145,32 @@ func Encode(scene *Scene, w io.Writer) error {
 	// 4. Joints
 	if err := bs.write(uint32(len(scene.Joints))); err != nil { return err }
 	for _, j := range scene.Joints {
+		// Indices (Type, Bodies, Linked Joints)
 		if err := bs.write(int32(j.JointType)); err != nil { return err }
 		if err := bs.write(int32(j.BodyA)); err != nil { return err }
 		if err := bs.write(int32(j.BodyB)); err != nil { return err }
-		
+		if err := bs.write(int32(j.Joint1)); err != nil { return err } // New
+		if err := bs.write(int32(j.Joint2)); err != nil { return err } // New
+
+		// Flags
 		jFlags := uint8(0)
 		if j.CollideConnected { jFlags |= 1 << 0 }
 		if j.EnableLimit { jFlags |= 1 << 1 }
 		if j.EnableMotor { jFlags |= 1 << 2 }
 		if err := bs.write(jFlags); err != nil { return err }
 
+		// Vectors ([2]float64)
 		if err := bs.write(j.LocalAnchorA); err != nil { return err }
 		if err := bs.write(j.LocalAnchorB); err != nil { return err }
 		if err := bs.write(j.GroundBody); err != nil { return err }
 		if err := bs.write(j.Target); err != nil { return err }
-		
+		if err := bs.write(j.GroundAnchorA); err != nil { return err } // New
+		if err := bs.write(j.GroundAnchorB); err != nil { return err } // New
+		if err := bs.write(j.LocalAxisA); err != nil { return err }    // New
+		if err := bs.write(j.LinearOffset); err != nil { return err }  // New
+
+		// Floats (float64)
+		if err := bs.write(j.Length); err != nil { return err }         // New
 		if err := bs.write(j.MaxForce); err != nil { return err }
 		if err := bs.write(j.FrequencyHZ); err != nil { return err }
 		if err := bs.write(j.DampingRatio); err != nil { return err }
@@ -173,11 +179,24 @@ func Encode(scene *Scene, w io.Writer) error {
 		if err := bs.write(j.ReferenceAngle); err != nil { return err }
 		if err := bs.write(j.MotorSpeed); err != nil { return err }
 		if err := bs.write(j.MaxMotorTorque); err != nil { return err }
+		if err := bs.write(j.LengthA); err != nil { return err }        // New
+		if err := bs.write(j.LengthB); err != nil { return err }        // New
+		if err := bs.write(j.MaxLengthA); err != nil { return err }     // New
+		if err := bs.write(j.MaxLengthB); err != nil { return err }     // New
+		if err := bs.write(j.Ratio); err != nil { return err }          // New
+		if err := bs.write(j.LowerTranslation); err != nil { return err } // New
+		if err := bs.write(j.UpperTranslation); err != nil { return err } // New
+		if err := bs.write(j.MaxMotorForce); err != nil { return err }  // New
+		if err := bs.write(j.MaxLength); err != nil { return err }      // New
+		if err := bs.write(j.MaxTorque); err != nil { return err }      // New
+		if err := bs.write(j.AngularOffset); err != nil { return err }  // New
+		if err := bs.write(j.CorrectionFactor); err != nil { return err } // New
 
+		// UserData
 		if err := bs.writeString(j.UserData); err != nil { return err }
 	}
 
-	// 5. Placeholders for Particles/Sprites (Lengths only)
+	// 5. Placeholders
 	if err := bs.write(uint32(0)); err != nil { return err } // Particles
 	if err := bs.write(uint32(0)); err != nil { return err } // Sprites
 
@@ -193,6 +212,8 @@ func Decode(r io.Reader) (*Scene, error) {
 	// 1. Header
 	header := make([]byte, 4)
 	if err := bs.read(header); err != nil { return nil, err }
+	// Allow both version 1 (old) and 2 (new) if you want backward compatibility,
+	// but here we enforce the new version for safety.
 	if !bytes.Equal(header, MagicHeader) {
 		return nil, fmt.Errorf("invalid file format or version")
 	}
@@ -214,7 +235,7 @@ func Decode(r io.Reader) (*Scene, error) {
 	for i := 0; i < int(bodyCount); i++ {
 		b := &scene.Bodies[i]
 		if err := bs.read(&b.Type); err != nil { return nil, err }
-		
+
 		var flags uint8
 		if err := bs.read(&flags); err != nil { return nil, err }
 		b.IsBullet = (flags & (1 << 0)) != 0
@@ -286,23 +307,35 @@ func Decode(r io.Reader) (*Scene, error) {
 	scene.Joints = make([]Joint, jointCount)
 	for i := 0; i < int(jointCount); i++ {
 		j := &scene.Joints[i]
-		var jt, ba, bb int32
+		
+		// Indices
+		var jt, ba, bb, j1, j2 int32
 		if err := bs.read(&jt); err != nil { return nil, err }
 		if err := bs.read(&ba); err != nil { return nil, err }
 		if err := bs.read(&bb); err != nil { return nil, err }
-		j.JointType, j.BodyA, j.BodyB = int(jt), int(ba), int(bb)
+		if err := bs.read(&j1); err != nil { return nil, err } // New
+		if err := bs.read(&j2); err != nil { return nil, err } // New
+		j.JointType, j.BodyA, j.BodyB, j.Joint1, j.Joint2 = int(jt), int(ba), int(bb), int(j1), int(j2)
 
+		// Flags
 		var jFlags uint8
 		if err := bs.read(&jFlags); err != nil { return nil, err }
 		j.CollideConnected = (jFlags & (1 << 0)) != 0
 		j.EnableLimit = (jFlags & (1 << 1)) != 0
 		j.EnableMotor = (jFlags & (1 << 2)) != 0
 
+		// Vectors
 		if err := bs.read(&j.LocalAnchorA); err != nil { return nil, err }
 		if err := bs.read(&j.LocalAnchorB); err != nil { return nil, err }
 		if err := bs.read(&j.GroundBody); err != nil { return nil, err }
 		if err := bs.read(&j.Target); err != nil { return nil, err }
-		
+		if err := bs.read(&j.GroundAnchorA); err != nil { return nil, err } // New
+		if err := bs.read(&j.GroundAnchorB); err != nil { return nil, err } // New
+		if err := bs.read(&j.LocalAxisA); err != nil { return nil, err }    // New
+		if err := bs.read(&j.LinearOffset); err != nil { return nil, err }  // New
+
+		// Floats
+		if err := bs.read(&j.Length); err != nil { return nil, err }          // New
 		if err := bs.read(&j.MaxForce); err != nil { return nil, err }
 		if err := bs.read(&j.FrequencyHZ); err != nil { return nil, err }
 		if err := bs.read(&j.DampingRatio); err != nil { return nil, err }
@@ -311,13 +344,26 @@ func Decode(r io.Reader) (*Scene, error) {
 		if err := bs.read(&j.ReferenceAngle); err != nil { return nil, err }
 		if err := bs.read(&j.MotorSpeed); err != nil { return nil, err }
 		if err := bs.read(&j.MaxMotorTorque); err != nil { return nil, err }
+		if err := bs.read(&j.LengthA); err != nil { return nil, err }         // New
+		if err := bs.read(&j.LengthB); err != nil { return nil, err }         // New
+		if err := bs.read(&j.MaxLengthA); err != nil { return nil, err }      // New
+		if err := bs.read(&j.MaxLengthB); err != nil { return nil, err }      // New
+		if err := bs.read(&j.Ratio); err != nil { return nil, err }           // New
+		if err := bs.read(&j.LowerTranslation); err != nil { return nil, err } // New
+		if err := bs.read(&j.UpperTranslation); err != nil { return nil, err } // New
+		if err := bs.read(&j.MaxMotorForce); err != nil { return nil, err }   // New
+		if err := bs.read(&j.MaxLength); err != nil { return nil, err }       // New
+		if err := bs.read(&j.MaxTorque); err != nil { return nil, err }       // New
+		if err := bs.read(&j.AngularOffset); err != nil { return nil, err }   // New
+		if err := bs.read(&j.CorrectionFactor); err != nil { return nil, err } // New
 
+		// UserData
 		ud, err := bs.readString()
 		if err != nil { return nil, err }
 		j.UserData = ud
 	}
 
-	// 5. Consume Particles/Sprites length (skip logic for now as structs are empty)
+	// 5. Placeholders (Particles/Sprites)
 	var pCount, sCount uint32
 	bs.read(&pCount)
 	bs.read(&sCount)
