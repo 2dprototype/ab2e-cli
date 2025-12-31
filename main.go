@@ -5,14 +5,15 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"math"
 	"os"
 	"path/filepath"
 	"strings"
 	"sync"
 	"time"
-	"math"
 
 	"ab2e/loader"
+
 	"github.com/ByteArena/box2d"
 	"github.com/gonutz/wui/v2"
 )
@@ -27,24 +28,69 @@ const (
 	minZoom        = 0.1
 	maxZoom        = 5.0
 	zoomStep       = 0.1
-	panSpeed       = 1.0
+	panSpeed       = 1.0 // Increased pan speed
+	panSensitivity = 0.125
 )
+
+// InputMode defines how mouse interaction works
+type InputMode int
+
+const (
+	ModePanZoom InputMode = iota
+	ModeGrab
+)
+
+func (m InputMode) String() string {
+	switch m {
+	case ModePanZoom:
+		return "PAN/ZOOM"
+	case ModeGrab:
+		return "GRAB/PHYSICS"
+	default:
+		return "UNKNOWN"
+	}
+}
+
+// RenderStyle defines the visual theme
+type RenderStyle int
+
+const (
+	StyleFlat RenderStyle = iota
+	StyleClassic
+	StyleNeon
+	StyleBlueprint
+)
+
+func (s RenderStyle) String() string {
+	switch s {
+	case StyleFlat:
+		return "Flat"
+	case StyleClassic:
+		return "Classic Box2D"
+	case StyleNeon:
+		return "Neon"
+	case StyleBlueprint:
+		return "Blueprint"
+	default:
+		return "Unknown"
+	}
+}
 
 // Viewport state
 type Viewport struct {
-	offsetX, offsetY float64
-	zoom             float64
-	panning          bool
+	offsetX, offsetY       float64
+	zoom                   float64
+	panning                bool
 	lastMouseX, lastMouseY int
-	mutex            sync.RWMutex
-	windowWidth      int
-	windowHeight     int
+	mutex                  sync.RWMutex
+	windowWidth            int
+	windowHeight           int
 }
 
 func NewViewport(width, height int) *Viewport {
 	return &Viewport{
-		zoom: defaultZoom,
-		windowWidth: width,
+		zoom:         defaultZoom,
+		windowWidth:  width,
 		windowHeight: height,
 	}
 }
@@ -108,7 +154,6 @@ func (v *Viewport) Reset() {
 	v.zoom = defaultZoom
 }
 
-
 func (v *Viewport) StartPan(x, y int) {
 	v.mutex.Lock()
 	defer v.mutex.Unlock()
@@ -121,19 +166,20 @@ func (v *Viewport) UpdatePan(x, y int) {
 	if !v.panning {
 		return
 	}
-	
+
 	v.mutex.Lock()
 	defer v.mutex.Unlock()
-	
+
 	dx := float64(x - v.lastMouseX)
 	dy := float64(y - v.lastMouseY)
-	
-	v.offsetX -= dx / v.zoom
-	v.offsetY -= dy / v.zoom
-	
+
+	v.offsetX -= (dx * panSensitivity) / v.zoom
+	v.offsetY -= (dy * panSensitivity) / v.zoom
+
 	v.lastMouseX = x
 	v.lastMouseY = y
 }
+
 
 func (v *Viewport) StopPan() {
 	v.mutex.Lock()
@@ -151,6 +197,7 @@ func (v *Viewport) WorldToScreen(worldX, worldY float64) (screenX, screenY int) 
 	return
 }
 
+
 func (v *Viewport) ScreenToWorld(screenX, screenY int) (worldX, worldY float64) {
 	v.mutex.RLock()
 	defer v.mutex.RUnlock()
@@ -161,6 +208,57 @@ func (v *Viewport) ScreenToWorld(screenX, screenY int) (worldX, worldY float64) 
 	return
 }
 
+// ----------------------------------------------------------------------------
+// Interaction State
+// ----------------------------------------------------------------------------
+
+type InteractionState struct {
+	Mode        InputMode
+	Style       RenderStyle
+	MouseJoint  *box2d.B2MouseJoint
+	GroundBody  *box2d.B2Body // Static body for mouse joints
+	MouseActive bool
+}
+
+// QueryCallback for finding bodies under mouse
+type SimpleQueryCallback struct {
+	World   *box2d.B2World
+	Point   box2d.B2Vec2
+	Fixture *box2d.B2Fixture
+}
+
+func (cb *SimpleQueryCallback) QueryCallback(proxyId int) bool {
+	fixture := cb.World.GetContactManager().
+		M_broadPhase.
+		GetUserData(proxyId).(*box2d.B2Fixture)
+
+	if fixture.GetBody().GetType() == box2d.B2BodyType.B2_dynamicBody {
+		if fixture.TestPoint(cb.Point) {
+			cb.Fixture = fixture
+			return false // stop query
+		}
+	}
+
+	return true // continue query
+}
+
+
+func (cb *SimpleQueryCallback) ReportFixture(fixture *box2d.B2Fixture) bool {
+	body := fixture.GetBody()
+	if body.GetType() == box2d.B2BodyType.B2_dynamicBody {
+		if fixture.TestPoint(cb.Point) {
+			cb.Fixture = fixture
+			// We found a dynamic body, stop the query
+			return false
+		}
+	}
+	return true // Keep looking
+}
+
+// ----------------------------------------------------------------------------
+// Main and Commands
+// ----------------------------------------------------------------------------
+
 func main() {
 	if len(os.Args) < 2 {
 		printUsage()
@@ -168,14 +266,13 @@ func main() {
 	}
 
 	command := os.Args[1]
-	
+
 	// Check if command is a file (for "ab2e <filename>" syntax)
 	if _, err := os.Stat(command); err == nil {
-		// It's a file, treat as draw command
 		os.Args = append([]string{os.Args[0], "draw"}, os.Args[1:]...)
 		command = "draw"
 	}
-	
+
 	switch command {
 	case "encode":
 		encodeCmd()
@@ -196,7 +293,7 @@ func encodeCmd() {
 	encodeFlags := flag.NewFlagSet("encode", flag.ExitOnError)
 	input := encodeFlags.String("i", "", "Input JSON file")
 	output := encodeFlags.String("o", "", "Output binary file")
-	
+
 	if err := encodeFlags.Parse(os.Args[2:]); err != nil {
 		fmt.Printf("Error parsing flags: %v\n", err)
 		os.Exit(1)
@@ -208,20 +305,18 @@ func encodeCmd() {
 		os.Exit(1)
 	}
 
-	// Read JSON
 	raw, err := os.ReadFile(*input)
 	if err != nil {
 		fmt.Printf("Error reading input file: %v\n", err)
 		os.Exit(1)
 	}
-	
+
 	var scene loader.Scene
 	if err := json.Unmarshal(raw, &scene); err != nil {
 		fmt.Printf("JSON parse error: %v\n", err)
 		os.Exit(1)
 	}
 
-	// Write Binary
 	f, err := os.Create(*output)
 	if err != nil {
 		fmt.Printf("Error creating output file: %v\n", err)
@@ -233,7 +328,7 @@ func encodeCmd() {
 		fmt.Printf("Encode error: %v\n", err)
 		os.Exit(1)
 	}
-	
+
 	fmt.Printf("Successfully encoded to %s\n", *output)
 }
 
@@ -241,7 +336,7 @@ func decodeCmd() {
 	decodeFlags := flag.NewFlagSet("decode", flag.ExitOnError)
 	input := decodeFlags.String("i", "", "Input binary file")
 	output := decodeFlags.String("o", "", "Output JSON file")
-	
+
 	if err := decodeFlags.Parse(os.Args[2:]); err != nil {
 		fmt.Printf("Error parsing flags: %v\n", err)
 		os.Exit(1)
@@ -253,7 +348,6 @@ func decodeCmd() {
 		os.Exit(1)
 	}
 
-	// Read Binary
 	f, err := os.Open(*input)
 	if err != nil {
 		fmt.Printf("Error reading input file: %v\n", err)
@@ -267,18 +361,17 @@ func decodeCmd() {
 		os.Exit(1)
 	}
 
-	// Write JSON
 	outBytes, err := json.MarshalIndent(scene, "", "  ")
 	if err != nil {
 		fmt.Printf("Error marshaling JSON: %v\n", err)
 		os.Exit(1)
 	}
-	
+
 	if err := os.WriteFile(*output, outBytes, 0644); err != nil {
 		fmt.Printf("Error writing output file: %v\n", err)
 		os.Exit(1)
 	}
-	
+
 	fmt.Printf("Successfully decoded to %s\n", *output)
 }
 
@@ -286,12 +379,9 @@ func drawCmd() {
 	drawFlags := flag.NewFlagSet("draw", flag.ExitOnError)
 	fileType := drawFlags.String("t", "", "File type: bin or json (default: autodetect)")
 	sceneFile := ""
-	
+
 	if len(os.Args) > 2 {
-		// Parse flags first
 		drawFlags.Parse(os.Args[2:])
-		
-		// Get non-flag arguments (the scene file)
 		args := drawFlags.Args()
 		if len(args) > 0 {
 			sceneFile = args[0]
@@ -304,7 +394,6 @@ func drawCmd() {
 		os.Exit(1)
 	}
 
-	// Auto-detect file type if not specified
 	if *fileType == "" {
 		ext := strings.ToLower(filepath.Ext(sceneFile))
 		if ext == ".bin" || ext == ".scn" {
@@ -312,10 +401,8 @@ func drawCmd() {
 		} else if ext == ".json" {
 			*fileType = "json"
 		} else {
-			// Try to detect by content
 			data, err := os.ReadFile(sceneFile)
 			if err == nil {
-				// Check if it looks like JSON
 				str := string(data)
 				if len(str) > 0 && (str[0] == '{' || str[0] == '[') {
 					*fileType = "json"
@@ -330,9 +417,8 @@ func drawCmd() {
 		}
 	}
 
-	// Load scene
 	var scene *loader.Scene
-	
+
 	if *fileType == "bin" {
 		f, err := os.Open(sceneFile)
 		if err != nil {
@@ -340,7 +426,7 @@ func drawCmd() {
 			os.Exit(1)
 		}
 		defer f.Close()
-		
+
 		scene, err = loader.Decode(f)
 		if err != nil {
 			fmt.Printf("Error decoding binary: %v\n", err)
@@ -352,7 +438,7 @@ func drawCmd() {
 			fmt.Printf("Error reading JSON file: %v\n", err)
 			os.Exit(1)
 		}
-		
+
 		scene, err = loader.DecodeScene(string(raw))
 		if err != nil {
 			fmt.Printf("Error parsing JSON: %v\n", err)
@@ -363,87 +449,157 @@ func drawCmd() {
 		os.Exit(1)
 	}
 
-	// Launch preview window
 	launchPreview(scene)
 }
 
+// ----------------------------------------------------------------------------
+// Preview Window & Rendering
+// ----------------------------------------------------------------------------
+
 func launchPreview(scene *loader.Scene) {
 	windowFont, _ := wui.NewFont(wui.FontDesc{
-		Name:   "Tahoma",
-		Height: -11,
+		Name:   "Segoe UI", // Cleaner font
+		Height: -12,
 	})
 
 	window := wui.NewWindow()
 	window.SetFont(windowFont)
-	window.SetTitle("Box2D Scene Preview - Use Arrow Keys to Pan, +/- to Zoom, Mouse Drag to Pan, R to Reset, F to Fit View")
+	window.SetTitle("Box2D Scene Preview")
 	window.SetInnerSize(defaultWidth, defaultHeight)
 	window.SetResizable(true)
 
 	paintBox := wui.NewPaintBox()
 	paintBox.SetBounds(0, 0, defaultWidth, defaultHeight)
 
-	// Create viewport
 	viewport := NewViewport(defaultWidth, defaultHeight)
 
-	// Create a new Box2D world using scene's gravity
+	// Box2D World setup
 	gravity := scene.World.Gravity
 	world := box2d.MakeB2World(box2d.B2Vec2{X: gravity[0], Y: gravity[1]})
-
-	// Load scene into Box2D
 	loader.LoadScene(&world, *scene)
+
+	// Interaction State
+	iState := &InteractionState{
+		Mode:  ModePanZoom,
+		Style: StyleFlat,
+	}
+
+	// Create a static ground body for the mouse joint
+	groundDef := box2d.MakeB2BodyDef()
+	iState.GroundBody = world.CreateBody(&groundDef)
 
 	var mutex sync.RWMutex
 	var updated bool
 
-	// Handle window resize
 	window.SetOnResize(func() {
 		mutex.Lock()
 		defer mutex.Unlock()
-		
+
 		w, h := window.InnerSize()
 		paintBox.SetBounds(0, 0, w, h)
 		viewport.SetWindowSize(w, h)
 		updated = true
 	})
 
-	// Handle keyboard input
+	// --- Input Handling ---
+
 	window.SetOnKeyDown(func(key int) {
+		mutex.Lock()
+		defer mutex.Unlock()
+
 		switch key {
 		case 39: // Right arrow
 			viewport.Pan(-panSpeed, 0)
-			updated = true
 		case 37: // Left arrow
 			viewport.Pan(panSpeed, 0)
-			updated = true
 		case 38: // Up arrow
 			viewport.Pan(0, panSpeed)
-			updated = true
 		case 40: // Down arrow
 			viewport.Pan(0, -panSpeed)
-			updated = true
-		case 187: // +
+		case 187, 107: // +
 			viewport.ZoomIn()
-			updated = true
-		case 189: // -
+		case 189, 109: // -
 			viewport.ZoomOut()
-			updated = true
-		case 82: // R
+		case 82: // R - Reset
 			viewport.Reset()
-			updated = true
+		case 71: // G - Toggle Mode
+			if iState.Mode == ModePanZoom {
+				iState.Mode = ModeGrab
+			} else {
+				iState.Mode = ModePanZoom
+			}
+		case 84: // T - Toggle Theme
+			iState.Style = (iState.Style + 1) % 4
 		}
+		updated = true
 	})
 
-	// Handle mouse input for panning
 	window.SetOnMouseDown(func(button wui.MouseButton, x, y int) {
 		if button == wui.MouseButtonLeft {
-			viewport.StartPan(x, y)
+			if iState.Mode == ModePanZoom {
+				viewport.StartPan(x, y)
+			} else if iState.Mode == ModeGrab {
+				wx, wy := viewport.ScreenToWorld(x, y)
+				worldPoint := box2d.MakeB2Vec2(wx, wy)
+
+				aabb := box2d.MakeB2AABB()
+				d := 0.001
+				aabb.LowerBound.Set(wx-d, wy-d)
+				aabb.UpperBound.Set(wx+d, wy+d)
+
+				mutex.Lock()
+				
+				// Fix: QueryAABB takes a function signature directly in this library
+				var foundFixture *box2d.B2Fixture
+				
+				callback := func(fixture *box2d.B2Fixture) bool {
+					body := fixture.GetBody()
+					if body.GetType() == box2d.B2BodyType.B2_dynamicBody {
+						if fixture.TestPoint(worldPoint) {
+							foundFixture = fixture
+							return false // Stop query
+						}
+					}
+					return true // Continue query
+				}
+
+				world.QueryAABB(callback, aabb)
+
+				if foundFixture != nil {
+					body := foundFixture.GetBody()
+					md := box2d.MakeB2MouseJointDef()
+					md.BodyA = iState.GroundBody
+					md.BodyB = body
+					md.Target = worldPoint
+					md.MaxForce = 1000.0 * body.GetMass()
+					md.FrequencyHz = 5.0
+					md.DampingRatio = 0.7
+
+					iState.MouseJoint = world.CreateJoint(&md).(*box2d.B2MouseJoint)
+					body.SetAwake(true)
+					iState.MouseActive = true
+				}
+				mutex.Unlock()
+			}
 		}
 	})
 
 	paintBox.SetOnMouseMove(func(x, y int) {
-		if viewport.panning {
+		// Panning
+		if iState.Mode == ModePanZoom && viewport.panning {
 			viewport.UpdatePan(x, y)
 			mutex.Lock()
+			updated = true
+			mutex.Unlock()
+		}
+
+		// Dragging Body
+		if iState.Mode == ModeGrab && iState.MouseActive && iState.MouseJoint != nil {
+			wx, wy := viewport.ScreenToWorld(x, y)
+			target := box2d.MakeB2Vec2(wx, wy)
+
+			mutex.Lock()
+			iState.MouseJoint.SetTarget(target)
 			updated = true
 			mutex.Unlock()
 		}
@@ -451,11 +607,21 @@ func launchPreview(scene *loader.Scene) {
 
 	window.SetOnMouseUp(func(button wui.MouseButton, x, y int) {
 		if button == wui.MouseButtonLeft {
-			viewport.StopPan()
+			if iState.Mode == ModePanZoom {
+				viewport.StopPan()
+			} else if iState.Mode == ModeGrab {
+				// Destroy mouse joint
+				mutex.Lock()
+				if iState.MouseJoint != nil {
+					world.DestroyJoint(iState.MouseJoint)
+					iState.MouseJoint = nil
+				}
+				iState.MouseActive = false
+				mutex.Unlock()
+			}
 		}
 	})
 
-	// Handle mouse wheel for zoom
 	window.SetOnMouseWheel(func(x int, y int, delta float64) {
 		if delta > 0 {
 			viewport.ZoomIn()
@@ -464,6 +630,8 @@ func launchPreview(scene *loader.Scene) {
 		}
 		updated = true
 	})
+
+	// --- Rendering Loop ---
 
 	paintBox.SetOnPaint(func(canvas *wui.Canvas) {
 		mutex.Lock()
@@ -475,13 +643,12 @@ func launchPreview(scene *loader.Scene) {
 		updated = false
 
 		_, _, width, height := paintBox.Bounds()
-		
-		clearCanvas(canvas, width, height)
-		renderWorld(canvas, &world, viewport, width, height)
-		renderHUD(canvas, viewport, width, height)
+
+		clearCanvas(canvas, width, height, iState.Style)
+		renderWorld(canvas, &world, viewport, width, height, iState)
+		renderHUD(canvas, viewport, width, height, iState)
 	})
 
-	// Start physics simulation in goroutine
 	go func() {
 		ticker := time.NewTicker(time.Second / fps)
 		defer ticker.Stop()
@@ -499,239 +666,232 @@ func launchPreview(scene *loader.Scene) {
 	window.Show()
 }
 
-func clearCanvas(canvas *wui.Canvas, width, height int) {
-	canvas.FillRect(0, 0, width, height, wui.RGB(20, 20, 30))
+// ----------------------------------------------------------------------------
+// Rendering Logic
+// ----------------------------------------------------------------------------
+
+func getThemeColors(style RenderStyle) (bg, grid, text wui.Color) {
+	switch style {
+	case StyleFlat:
+		return wui.RGB(240, 240, 245), wui.RGB(220, 220, 230), wui.RGB(50, 50, 60)
+	case StyleClassic:
+		return wui.RGB(20, 20, 20), wui.RGB(40, 40, 40), wui.RGB(220, 220, 220)
+	case StyleNeon:
+		return wui.RGB(5, 5, 10), wui.RGB(30, 20, 40), wui.RGB(0, 255, 255)
+	case StyleBlueprint:
+		return wui.RGB(10, 50, 100), wui.RGB(20, 70, 130), wui.RGB(220, 230, 255)
+	default:
+		return wui.RGB(0, 0, 0), wui.RGB(50, 50, 50), wui.RGB(255, 255, 255)
+	}
 }
 
-func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport, width, height int) {
+func clearCanvas(canvas *wui.Canvas, width, height int, style RenderStyle) {
+	bg, _, _ := getThemeColors(style)
+	canvas.FillRect(0, 0, width, height, bg)
+}
+
+func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport, width, height int, iState *InteractionState) {
+	_, gridColor, _ := getThemeColors(iState.Style)
 	zoom := viewport.GetZoom()
-	
-	// Draw coordinate grid
-	gridSizeWorld := 1.0 // 1 meter in world coordinates
+
+	// 1. Grid
+	gridSizeWorld := 1.0
 	gridSizeScreen := int(gridSizeWorld * zoom * scale)
-	gridColor := wui.RGB(40, 40, 60)
-	
-	if gridSizeScreen > 5 { // Only draw grid if it's visible
-		
-		// Find visible range
+
+	if gridSizeScreen > 5 {
 		worldLeft, worldTop := viewport.ScreenToWorld(0, 0)
 		worldRight, worldBottom := viewport.ScreenToWorld(width, height)
-		
+
+		// Y flips in ScreenToWorld, so top > bottom in value effectively for loop
+		minY := math.Min(worldTop, worldBottom)
+		maxY := math.Max(worldTop, worldBottom)
+
 		// Vertical lines
 		startX := math.Floor(worldLeft/gridSizeWorld) * gridSizeWorld
 		endX := math.Ceil(worldRight/gridSizeWorld) * gridSizeWorld
-		
 		for x := startX; x <= endX; x += gridSizeWorld {
-			screenX1, screenY1 := viewport.WorldToScreen(x, worldTop)
-			screenX2, screenY2 := viewport.WorldToScreen(x, worldBottom)
-			
-			// Make every 5th line brighter
-			lineColor := gridColor
-			if int(math.Abs(x/gridSizeWorld))%5 == 0 {
-				lineColor = wui.RGB(60, 60, 80)
+			screenX, _ := viewport.WorldToScreen(x, 0)
+			if int(math.Abs(x/gridSizeWorld))%10 == 0 {
+				canvas.Line(screenX, 0, screenX, height, wui.RGB(100, 100, 100))
+			} else {
+				canvas.Line(screenX, 0, screenX, height, gridColor)
 			}
-			
-			canvas.Line(screenX1, screenY1, screenX2, screenY2, lineColor)
 		}
-		
+
 		// Horizontal lines
-		startY := math.Floor(worldTop/gridSizeWorld) * gridSizeWorld
-		endY := math.Ceil(worldBottom/gridSizeWorld) * gridSizeWorld
-		
+		startY := math.Floor(minY/gridSizeWorld) * gridSizeWorld
+		endY := math.Ceil(maxY/gridSizeWorld) * gridSizeWorld
 		for y := startY; y <= endY; y += gridSizeWorld {
-			screenX1, screenY1 := viewport.WorldToScreen(worldLeft, y)
-			screenX2, screenY2 := viewport.WorldToScreen(worldRight, y)
-			
-			// Make every 5th line brighter
-			lineColor := gridColor
-			if int(math.Abs(y/gridSizeWorld))%5 == 0 {
-				lineColor = wui.RGB(60, 60, 80)
+			_, screenY := viewport.WorldToScreen(0, y)
+			if int(math.Abs(y/gridSizeWorld))%10 == 0 {
+				canvas.Line(0, screenY, width, screenY, wui.RGB(100, 100, 100))
+			} else {
+				canvas.Line(0, screenY, width, screenY, gridColor)
 			}
-			
-			canvas.Line(screenX1, screenY1, screenX2, screenY2, lineColor)
 		}
 	}
 
-	// Draw origin (0,0)
-	originX, originY := viewport.WorldToScreen(0, 0)
-	if originX >= 0 && originX < width && originY >= 0 && originY < height {
-		canvas.FillEllipse(originX-3, originY-3, 6, 6, wui.RGB(255, 100, 100))
-		canvas.TextOut(originX+8, originY-6, "(0,0)", wui.RGB(255, 150, 150))
-	}
-	
-	// Draw bodies
-	bodyList := world.GetBodyList()
-	bodyColors := []wui.Color{
-		wui.RGB(255, 100, 100),   // Red
-		wui.RGB(100, 255, 100),   // Green
-		wui.RGB(100, 100, 255),   // Blue
-		wui.RGB(255, 255, 100),   // Yellow
-		wui.RGB(255, 100, 255),   // Magenta
-		wui.RGB(100, 255, 255),   // Cyan
+	// 2. Bodies
+	for body := world.GetBodyList(); body != nil; body = body.GetNext() {
+		if body == iState.GroundBody {
+			continue
+		}
+		renderBody(canvas, body, viewport, width, height, iState.Style)
 	}
 
-	bodyIdx := 0
-	for body := bodyList; body != nil; body = body.GetNext() {
-		color := bodyColors[bodyIdx%len(bodyColors)]
-		bodyType := body.GetType()
-		
-		// Different colors for different body types
-		if bodyType == box2d.B2BodyType.B2_staticBody {
-			color = wui.RGB(150, 150, 150) // Gray for static
-		} else if bodyType == box2d.B2BodyType.B2_kinematicBody {
-			color = wui.RGB(200, 150, 50) // Orange for kinematic
-		}
+	// 3. Joints (specifically Mouse Joint Visualization)
+	if iState.MouseJoint != nil {
+		target := iState.MouseJoint.GetTarget()
+		bodyB := iState.MouseJoint.GetBodyB()
+		anchorB := bodyB.GetPosition()
 
-		for fixture := body.GetFixtureList(); fixture != nil; fixture = fixture.GetNext() {
-			shape := fixture.GetShape()
-			shapeType := shape.GetType()
+		sx1, sy1 := viewport.WorldToScreen(target.X, target.Y)
+		sx2, sy2 := viewport.WorldToScreen(anchorB.X, anchorB.Y)
 
-			if shapeType == box2d.B2Shape_Type.E_circle {
-				// Circle shape
-				position := body.GetPosition()
-				radius := shape.GetRadius()
-				screenX, screenY := viewport.WorldToScreen(position.X, position.Y)
-				screenRadius := int(radius * zoom * scale)
-				
-				if screenRadius > 1 { // Only draw if visible
-					canvas.DrawEllipse(
-						screenX-screenRadius,
-						screenY-screenRadius,
-						screenRadius*2,
-						screenRadius*2,
-						color,
-					)
-					
-					// Draw rotation indicator
-					angle := body.GetAngle()
-					indicatorX := screenX + int(float64(screenRadius)*0.7*math.Cos(angle))
-					indicatorY := screenY + int(float64(screenRadius)*0.7*math.Sin(angle))
-					canvas.FillEllipse(indicatorX-2, indicatorY-2, 4, 4, wui.RGB(255, 255, 255))
-				}
-				
-			} else if shapeType == box2d.B2Shape_Type.E_polygon {
-				// Polygon shape
-				polygonShape := shape.(*box2d.B2PolygonShape)
-				points := make([]wui.Point, polygonShape.M_count)
-				visible := false
-				
-				for i := 0; i < polygonShape.M_count; i++ {
-					vertex := body.GetWorldPoint(polygonShape.M_vertices[i])
-					screenX, screenY := viewport.WorldToScreen(vertex.X, vertex.Y)
-					points[i] = wui.Point{
-						X: int32(screenX),
-						Y: int32(screenY),
-					}
-					
-					// Check if at least one vertex is visible
-					if screenX >= 0 && screenX < width && screenY >= 0 && screenY < height {
-						visible = true
-					}
-				}
-				
-				if visible {
-					canvas.Polyline(append(points, points[0]), color)
-					
-					// Draw center point
-					position := body.GetPosition()
-					centerX, centerY := viewport.WorldToScreen(position.X, position.Y)
-					if centerX >= 0 && centerX < width && centerY >= 0 && centerY < height {
-						canvas.FillEllipse(centerX-2, centerY-2, 4, 4, wui.RGB(255, 255, 255))
-					}
-				}
-				
-			} else if shapeType == box2d.B2Shape_Type.E_edge {
-				// Edge shape (line segment)
-				edgeShape := shape.(*box2d.B2EdgeShape)
-				v1 := body.GetWorldPoint(edgeShape.M_vertex1)
-				v2 := body.GetWorldPoint(edgeShape.M_vertex2)
-				
-				screenX1, screenY1 := viewport.WorldToScreen(v1.X, v1.Y)
-				screenX2, screenY2 := viewport.WorldToScreen(v2.X, v2.Y)
-				
-				canvas.Line(
-					screenX1,
-					screenY1,
-					screenX2,
-					screenY2,
-					wui.RGB(200, 200, 100), // Yellow for edges
-				)
-			} else if shapeType == box2d.B2Shape_Type.E_chain {
-				// Chain shape
-				chainShape := shape.(*box2d.B2ChainShape)
-				vertices := chainShape.M_vertices
-				count := chainShape.M_count
-				
-				for i := 0; i < count-1; i++ {
-					v1 := body.GetWorldPoint(vertices[i])
-					v2 := body.GetWorldPoint(vertices[i+1])
-					
-					screenX1, screenY1 := viewport.WorldToScreen(v1.X, v1.Y)
-					screenX2, screenY2 := viewport.WorldToScreen(v2.X, v2.Y)
-					
-					canvas.Line(
-						screenX1,
-						screenY1,
-						screenX2,
-						screenY2,
-						wui.RGB(100, 200, 200), // Cyan for chains
-					)
-				}
-			}
-		}
-		
-		// Draw velocity vector for dynamic bodies
-		if body.GetType() == box2d.B2BodyType.B2_dynamicBody {
-			position := body.GetPosition()
-			velocity := body.GetLinearVelocity()
-			
-			if velocity.Length() > 0.1 {
-				startX, startY := viewport.WorldToScreen(position.X, position.Y)
-				endX, endY := viewport.WorldToScreen(
-					position.X+velocity.X*0.2, // Scale for visualization
-					position.Y+velocity.Y*0.2,
-				)
-				
-				canvas.Line(startX, startY, endX, endY, wui.RGB(255, 100, 100))
-				canvas.FillEllipse(endX-3, endY-3, 6, 6, wui.RGB(255, 50, 50))
-			}
-		}
-		
-		bodyIdx++
+		canvas.Line(sx1, sy1, sx2, sy2, wui.RGB(255, 255, 255))
+		canvas.FillEllipse(sx1-3, sy1-3, 6, 6, wui.RGB(0, 255, 0))
 	}
 }
 
-func renderHUD(canvas *wui.Canvas, viewport *Viewport, width, height int) {
-	zoom := viewport.GetZoom()
-	offsetX, offsetY := viewport.GetOffset()
-	
-	// Draw viewport info
-	info := fmt.Sprintf("Zoom: %.2fx\nOffset: (%.2f, %.2f)\n\nControls:\nArrow Keys => Pan\n+/- => Zoom\nMouse Drag => Pan\nMouse Wheel => Zoom\nR => Reset View\nF => Fit View to Scene",
-		zoom, offsetX, offsetY)
-	
-	lines := strings.Split(info, "\n")
-	for i, line := range lines {
-		canvas.TextOut(10, 10+i*15, line, wui.RGB(220, 220, 220))
+func renderBody(canvas *wui.Canvas, body *box2d.B2Body, viewport *Viewport, width, height int, style RenderStyle) {
+	xf := body.GetTransform()
+
+	var fill, outline wui.Color
+	isStatic := body.GetType() == box2d.B2BodyType.B2_staticBody
+	isAwake := body.IsAwake()
+
+	// Determine Colors based on Style
+	switch style {
+	case StyleClassic:
+		// Box2D C++ testbed colors
+		if isStatic {
+			fill = wui.RGB(127, 229, 127) // Light Green
+		} else if !isAwake {
+			fill = wui.RGB(127, 127, 127) // Gray
+		} else {
+			fill = wui.RGB(229, 178, 178) // Light Red/Pink
+		}
+		outline = wui.RGB(230, 230, 230) // Almost White outline for everything
+
+	case StyleNeon:
+		if isStatic {
+			fill = wui.RGB(0, 0, 0)
+			outline = wui.RGB(0, 255, 255) // Cyan
+		} else {
+			fill = wui.RGB(20, 10, 30)
+			outline = wui.RGB(255, 0, 255) // Magenta
+		}
+
+	case StyleBlueprint:
+		if isStatic {
+			fill = wui.RGB(10, 50, 100) // Match bg (transparent-ish)
+			outline = wui.RGB(255, 255, 255)
+		} else {
+			fill = wui.RGB(30, 90, 160)
+			outline = wui.RGB(200, 220, 255)
+		}
+
+	case StyleFlat:
+		// Modern flat look
+		if isStatic {
+			fill = wui.RGB(90, 99, 115) // Slate gray
+		} else if !isAwake {
+			fill = wui.RGB(180, 180, 180) // Light gray sleep
+		} else {
+			fill = wui.RGB(235, 87, 87) // Salmon red
+		}
+		outline = fill // No distinct outline
 	}
+
+	for f := body.GetFixtureList(); f != nil; f = f.GetNext() {
+		shape := f.GetShape()
+
+		if shape.GetType() == box2d.B2Shape_Type.E_circle {
+			circle := shape.(*box2d.B2CircleShape)
+			center := box2d.B2TransformVec2Mul(xf, circle.M_p)
+			radius := circle.M_radius
+
+			sx, sy := viewport.WorldToScreen(center.X, center.Y)
+			sr := int(radius * viewport.zoom * scale)
+
+			if sr < 1 {
+				sr = 1
+			}
+
+			// Draw Fill
+			if style != StyleClassic { // Classic is outline focused usually, but let's fill semi-transparently logic here
+				canvas.FillEllipse(sx-sr, sy-sr, sr*2, sr*2, fill)
+			}
+
+			// Draw Outline
+			if style != StyleFlat {
+				canvas.DrawEllipse(sx-sr, sy-sr, sr*2, sr*2, outline)
+			}
+
+			// Rotation line
+			ax := center.X + radius*xf.Q.C
+			ay := center.Y + radius*xf.Q.S
+			sAx, sAy := viewport.WorldToScreen(ax, ay)
+			canvas.Line(sx, sy, sAx, sAy, wui.RGB(50, 50, 50))
+
+		} else if shape.GetType() == box2d.B2Shape_Type.E_polygon {
+			poly := shape.(*box2d.B2PolygonShape)
+			vertexCount := poly.M_count
+			points := make([]wui.Point, vertexCount)
+
+			for i := 0; i < vertexCount; i++ {
+				v := box2d.B2TransformVec2Mul(xf, poly.M_vertices[i])
+				sx, sy := viewport.WorldToScreen(v.X, v.Y)
+				points[i] = wui.Point{X: int32(sx), Y: int32(sy)}
+			}
+
+			if style != StyleClassic {
+				canvas.Polygon(points, fill)
+			}
+			
+			// For Classic/Neon/Blueprint we explicitly want the outline drawn
+			if style != StyleFlat {
+				canvas.Polyline(append(points, points[0]), outline)
+			}
+		}
+	}
+}
+
+func renderHUD(canvas *wui.Canvas, viewport *Viewport, width, height int, iState *InteractionState) {
+	_, _, textColor := getThemeColors(iState.Style)
 	
-	// Draw zoom indicator in bottom right
-	zoomBarWidth := 100
-	zoomBarHeight := 10
-	zoomBarX := width - zoomBarWidth - 10
-	zoomBarY := height - 30
+	y := 10
+	lineH := 20
 	
-	// Background
-	canvas.FillRect(zoomBarX, zoomBarY, zoomBarWidth, zoomBarHeight, wui.RGB(80, 80, 80))
-	
-	// Fill based on zoom level (logarithmic scale for better visualization)
-	zoomRatio := (math.Log10(zoom) - math.Log10(minZoom)) / (math.Log10(maxZoom) - math.Log10(minZoom))
-	fillWidth := int(float64(zoomBarWidth) * math.Max(0, math.Min(1, zoomRatio)))
-	canvas.FillRect(zoomBarX, zoomBarY, fillWidth, zoomBarHeight, wui.RGB(100, 200, 100))
-	
-	// Zoom labels
-	canvas.TextOut(zoomBarX, zoomBarY-15, fmt.Sprintf("Zoom: %.2fx", zoom), wui.RGB(220, 220, 220))
-	canvas.TextOut(zoomBarX, zoomBarY+15, fmt.Sprintf("Min: %.1fx", minZoom), wui.RGB(150, 150, 150))
-	canvas.TextOut(zoomBarX+zoomBarWidth-45, zoomBarY+15, fmt.Sprintf("Max: %.1fx", maxZoom), wui.RGB(150, 150, 150))
+	// Mode Indicator
+	modeStr := fmt.Sprintf("MODE: %s (Press 'G')", iState.Mode)
+	canvas.TextOut(10, y, modeStr, textColor)
+	y += lineH
+
+	// Style Indicator
+	styleStr := fmt.Sprintf("STYLE: %s (Press 'T')", iState.Style)
+	canvas.TextOut(10, y, styleStr, textColor)
+	y += lineH * 2
+
+	// Instructions
+	strs := []string{
+		"CONTROLS:",
+		"----------------",
+		"Arrow Keys : Pan",
+		"+ / -      : Zoom",
+		"G          : Toggle Grab/Pan",
+		"T          : Toggle Theme",
+		"R          : Reset View",
+	}
+
+	for _, s := range strs {
+		canvas.TextOut(10, y, s, textColor)
+		y += lineH
+	}
+
+	// Bottom Zoom status
+	status := fmt.Sprintf("Zoom: %.2fx", viewport.GetZoom())
+	canvas.TextOut(width-100, height-30, status, textColor)
 }
 
 func printUsage() {
@@ -741,27 +901,6 @@ func printUsage() {
 	fmt.Println("  ab2e encode -i <input.json> -o <output.bin>")
 	fmt.Println("  ab2e decode -i <input.bin> -o <output.json>")
 	fmt.Println("  ab2e draw [-t bin|json] <scene_file>")
-	fmt.Println("  ab2e <scene_file>             (auto-detect format)")
+	fmt.Println("  ab2e <scene_file>")
 	fmt.Println("  ab2e help")
-	fmt.Println()
-	fmt.Println("Commands:")
-	fmt.Println("  encode    Convert JSON scene to binary format")
-	fmt.Println("  decode    Convert binary scene to JSON format")
-	fmt.Println("  draw      Preview a scene (JSON or binary) in a window")
-	fmt.Println("  help      Show this help message")
-	fmt.Println()
-	fmt.Println("Preview Controls:")
-	fmt.Println("  Arrow Keys  - Pan viewport")
-	fmt.Println("  +/-         - Zoom in/out")
-	fmt.Println("  Mouse Drag  - Pan viewport")
-	fmt.Println("  Mouse Wheel - Zoom in/out")
-	fmt.Println("  R           - Reset view to default")
-	fmt.Println("  F           - Fit view to scene")
-	fmt.Println()
-	fmt.Println("Examples:")
-	fmt.Println("  ab2e encode -i scene.json -o scene.bin")
-	fmt.Println("  ab2e decode -i scene.bin -o scene.json")
-	fmt.Println("  ab2e draw scene.json")
-	fmt.Println("  ab2e draw -t bin scene.bin")
-	fmt.Println("  ab2e scene.json")
 }
