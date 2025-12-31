@@ -3,10 +3,13 @@
 AB2E Scene Tool - Encode, Decode, and Preview Box2D Scenes
 
 ```bash
+AB2E Scene Tool - Encode, Decode, and Preview Box2D Scenes
+
 Usage:
   ab2e encode -i <input.json> -o <output.bin>
   ab2e decode -i <input.bin> -o <output.json>
   ab2e draw [-t bin|json] <scene_file>
+  ab2e <scene_file>             (auto-detect format)
   ab2e help
 
 Commands:
@@ -21,10 +24,12 @@ Preview Controls:
   Mouse Drag  - Pan viewport
   Mouse Wheel - Zoom in/out
   R           - Reset view to default
+  F           - Fit view to scene
 
 Examples:
   ab2e encode -i scene.json -o scene.bin
   ab2e decode -i scene.bin -o scene.json
   ab2e draw scene.json
   ab2e draw -t bin scene.bin
+  ab2e scene.json
 ```
