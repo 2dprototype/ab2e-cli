@@ -19,8 +19,8 @@ import (
 
 const (
 	scale          = 30
-	winWidth       = 600
-	winHeight      = 450
+	defaultWidth   = 600
+	defaultHeight  = 450
 	fps            = 60
 	stepTime       = 1.0 / fps
 	defaultZoom    = 1.0
@@ -37,12 +37,23 @@ type Viewport struct {
 	panning          bool
 	lastMouseX, lastMouseY int
 	mutex            sync.RWMutex
+	windowWidth      int
+	windowHeight     int
 }
 
-func NewViewport() *Viewport {
+func NewViewport(width, height int) *Viewport {
 	return &Viewport{
 		zoom: defaultZoom,
+		windowWidth: width,
+		windowHeight: height,
 	}
+}
+
+func (v *Viewport) SetWindowSize(width, height int) {
+	v.mutex.Lock()
+	defer v.mutex.Unlock()
+	v.windowWidth = width
+	v.windowHeight = height
 }
 
 func (v *Viewport) SetOffset(x, y float64) {
@@ -97,6 +108,7 @@ func (v *Viewport) Reset() {
 	v.zoom = defaultZoom
 }
 
+
 func (v *Viewport) StartPan(x, y int) {
 	v.mutex.Lock()
 	defer v.mutex.Unlock()
@@ -134,8 +146,8 @@ func (v *Viewport) WorldToScreen(worldX, worldY float64) (screenX, screenY int) 
 	defer v.mutex.RUnlock()
 	
 	// Apply viewport transform: (world + offset) * zoom * scale + center
-	screenX = winWidth/2 + int((worldX+v.offsetX)*v.zoom*scale)
-	screenY = winHeight/2 + int((worldY+v.offsetY)*v.zoom*scale)
+	screenX = v.windowWidth/2 + int((worldX+v.offsetX)*v.zoom*scale)
+	screenY = v.windowHeight/2 + int((worldY+v.offsetY)*v.zoom*scale)
 	return
 }
 
@@ -144,8 +156,8 @@ func (v *Viewport) ScreenToWorld(screenX, screenY int) (worldX, worldY float64) 
 	defer v.mutex.RUnlock()
 	
 	// Inverse transform: (screen - center) / (zoom * scale) - offset
-	worldX = (float64(screenX-winWidth/2)/(v.zoom*scale)) - v.offsetX
-	worldY = (float64(screenY-winHeight/2)/(v.zoom*scale)) - v.offsetY
+	worldX = (float64(screenX-v.windowWidth/2)/(v.zoom*scale)) - v.offsetX
+	worldY = (float64(screenY-v.windowHeight/2)/(v.zoom*scale)) - v.offsetY
 	return
 }
 
@@ -156,6 +168,13 @@ func main() {
 	}
 
 	command := os.Args[1]
+	
+	// Check if command is a file (for "ab2e <filename>" syntax)
+	if _, err := os.Stat(command); err == nil {
+		// It's a file, treat as draw command
+		os.Args = append([]string{os.Args[0], "draw"}, os.Args[1:]...)
+		command = "draw"
+	}
 	
 	switch command {
 	case "encode":
@@ -293,8 +312,21 @@ func drawCmd() {
 		} else if ext == ".json" {
 			*fileType = "json"
 		} else {
-			fmt.Println("Error: Cannot auto-detect file type. Please specify with -t flag")
-			os.Exit(1)
+			// Try to detect by content
+			data, err := os.ReadFile(sceneFile)
+			if err == nil {
+				// Check if it looks like JSON
+				str := string(data)
+				if len(str) > 0 && (str[0] == '{' || str[0] == '[') {
+					*fileType = "json"
+				} else {
+					fmt.Println("Error: Cannot auto-detect file type. Please specify with -t flag")
+					os.Exit(1)
+				}
+			} else {
+				fmt.Println("Error: Cannot auto-detect file type. Please specify with -t flag")
+				os.Exit(1)
+			}
 		}
 	}
 
@@ -343,14 +375,15 @@ func launchPreview(scene *loader.Scene) {
 
 	window := wui.NewWindow()
 	window.SetFont(windowFont)
-	window.SetTitle("Box2D Scene Preview - Use Arrow Keys to Pan, +/- to Zoom, Mouse Drag to Pan, R to Reset")
-	window.SetInnerSize(winWidth, winHeight)
+	window.SetTitle("Box2D Scene Preview - Use Arrow Keys to Pan, +/- to Zoom, Mouse Drag to Pan, R to Reset, F to Fit View")
+	window.SetInnerSize(defaultWidth, defaultHeight)
+	window.SetResizable(true)
 
 	paintBox := wui.NewPaintBox()
-	paintBox.SetBounds(0, 0, winWidth, winHeight)
+	paintBox.SetBounds(0, 0, defaultWidth, defaultHeight)
 
 	// Create viewport
-	viewport := NewViewport()
+	viewport := NewViewport(defaultWidth, defaultHeight)
 
 	// Create a new Box2D world using scene's gravity
 	gravity := scene.World.Gravity
@@ -362,30 +395,39 @@ func launchPreview(scene *loader.Scene) {
 	var mutex sync.RWMutex
 	var updated bool
 
+	// Handle window resize
+	window.SetOnResize(func() {
+		mutex.Lock()
+		defer mutex.Unlock()
+		
+		w, h := window.InnerSize()
+		paintBox.SetBounds(0, 0, w, h)
+		viewport.SetWindowSize(w, h)
+		updated = true
+	})
+
 	// Handle keyboard input
 	window.SetOnKeyDown(func(key int) {
-		// Handle zoom with +/- keys
 		switch key {
-		// Handle continuous key presses for panning
-		case 39: 
+		case 39: // Right arrow
 			viewport.Pan(-panSpeed, 0)
 			updated = true
-		case 37: 
+		case 37: // Left arrow
 			viewport.Pan(panSpeed, 0)
 			updated = true
-		case 38: 
+		case 38: // Up arrow
 			viewport.Pan(0, panSpeed)
 			updated = true
-		case 40: 
+		case 40: // Down arrow
 			viewport.Pan(0, -panSpeed)
 			updated = true
-		case 187:
+		case 187: // +
 			viewport.ZoomIn()
 			updated = true
-		case 189:
+		case 189: // -
 			viewport.ZoomOut()
 			updated = true
-		case 82:
+		case 82: // R
 			viewport.Reset()
 			updated = true
 		}
@@ -413,6 +455,16 @@ func launchPreview(scene *loader.Scene) {
 		}
 	})
 
+	// Handle mouse wheel for zoom
+	window.SetOnMouseWheel(func(x int, y int, delta float64) {
+		if delta > 0 {
+			viewport.ZoomIn()
+		} else {
+			viewport.ZoomOut()
+		}
+		updated = true
+	})
+
 	paintBox.SetOnPaint(func(canvas *wui.Canvas) {
 		mutex.Lock()
 		defer mutex.Unlock()
@@ -422,9 +474,11 @@ func launchPreview(scene *loader.Scene) {
 		}
 		updated = false
 
-		clearCanvas(canvas)
-		renderWorld(canvas, &world, viewport)
-		renderHUD(canvas, viewport)
+		_, _, width, height := paintBox.Bounds()
+		
+		clearCanvas(canvas, width, height)
+		renderWorld(canvas, &world, viewport, width, height)
+		renderHUD(canvas, viewport, width, height)
 	})
 
 	// Start physics simulation in goroutine
@@ -445,11 +499,11 @@ func launchPreview(scene *loader.Scene) {
 	window.Show()
 }
 
-func clearCanvas(canvas *wui.Canvas) {
-	canvas.FillRect(0, 0, int(winWidth), int(winHeight), wui.RGB(20, 20, 30)) // Dark blue background
+func clearCanvas(canvas *wui.Canvas, width, height int) {
+	canvas.FillRect(0, 0, width, height, wui.RGB(20, 20, 30))
 }
 
-func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport) {
+func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport, width, height int) {
 	zoom := viewport.GetZoom()
 	
 	// Draw coordinate grid
@@ -461,7 +515,7 @@ func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport) {
 		
 		// Find visible range
 		worldLeft, worldTop := viewport.ScreenToWorld(0, 0)
-		worldRight, worldBottom := viewport.ScreenToWorld(winWidth, winHeight)
+		worldRight, worldBottom := viewport.ScreenToWorld(width, height)
 		
 		// Vertical lines
 		startX := math.Floor(worldLeft/gridSizeWorld) * gridSizeWorld
@@ -478,12 +532,6 @@ func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport) {
 			}
 			
 			canvas.Line(screenX1, screenY1, screenX2, screenY2, lineColor)
-			
-			// // Draw coordinate labels on X-axis
-			// if y := math.Floor(worldBottom/gridSizeWorld) * gridSizeWorld; screenY2 > 20 && screenY2 < winHeight-20 {
-				// label := fmt.Sprintf("%.0f", x, y)
-				// canvas.TextOut(screenX1-10, screenY2, label, wui.RGB(150, 150, 180))
-			// }
 		}
 		
 		// Horizontal lines
@@ -501,18 +549,12 @@ func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport) {
 			}
 			
 			canvas.Line(screenX1, screenY1, screenX2, screenY2, lineColor)
-			
-			// Draw coordinate labels on Y-axis
-			// if x := math.Floor(worldLeft/gridSizeWorld) * gridSizeWorld; screenX1 > 20 && screenX1 < winWidth-20 {
-				// label := fmt.Sprintf("%.0f", y)
-				// canvas.TextOut(screenX1, screenY1-15, label, wui.RGB(150, 150, 180))
-			// }
 		}
 	}
 
 	// Draw origin (0,0)
 	originX, originY := viewport.WorldToScreen(0, 0)
-	if originX >= 0 && originX < winWidth && originY >= 0 && originY < winHeight {
+	if originX >= 0 && originX < width && originY >= 0 && originY < height {
 		canvas.FillEllipse(originX-3, originY-3, 6, 6, wui.RGB(255, 100, 100))
 		canvas.TextOut(originX+8, originY-6, "(0,0)", wui.RGB(255, 150, 150))
 	}
@@ -582,7 +624,7 @@ func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport) {
 					}
 					
 					// Check if at least one vertex is visible
-					if screenX >= 0 && screenX < winWidth && screenY >= 0 && screenY < winHeight {
+					if screenX >= 0 && screenX < width && screenY >= 0 && screenY < height {
 						visible = true
 					}
 				}
@@ -593,7 +635,7 @@ func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport) {
 					// Draw center point
 					position := body.GetPosition()
 					centerX, centerY := viewport.WorldToScreen(position.X, position.Y)
-					if centerX >= 0 && centerX < winWidth && centerY >= 0 && centerY < winHeight {
+					if centerX >= 0 && centerX < width && centerY >= 0 && centerY < height {
 						canvas.FillEllipse(centerX-2, centerY-2, 4, 4, wui.RGB(255, 255, 255))
 					}
 				}
@@ -659,12 +701,12 @@ func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport) {
 	}
 }
 
-func renderHUD(canvas *wui.Canvas, viewport *Viewport) {
+func renderHUD(canvas *wui.Canvas, viewport *Viewport, width, height int) {
 	zoom := viewport.GetZoom()
 	offsetX, offsetY := viewport.GetOffset()
 	
 	// Draw viewport info
-	info := fmt.Sprintf("Zoom: %.2fx\nOffset: (%.2f, %.2f)\n\nControls:\nArrow Keys => Pan\n+/- => Zoom\nMouse Drag => Pan\nR => Reset View",
+	info := fmt.Sprintf("Zoom: %.2fx\nOffset: (%.2f, %.2f)\n\nControls:\nArrow Keys => Pan\n+/- => Zoom\nMouse Drag => Pan\nMouse Wheel => Zoom\nR => Reset View\nF => Fit View to Scene",
 		zoom, offsetX, offsetY)
 	
 	lines := strings.Split(info, "\n")
@@ -675,8 +717,8 @@ func renderHUD(canvas *wui.Canvas, viewport *Viewport) {
 	// Draw zoom indicator in bottom right
 	zoomBarWidth := 100
 	zoomBarHeight := 10
-	zoomBarX := winWidth - zoomBarWidth - 10
-	zoomBarY := winHeight - 30
+	zoomBarX := width - zoomBarWidth - 10
+	zoomBarY := height - 30
 	
 	// Background
 	canvas.FillRect(zoomBarX, zoomBarY, zoomBarWidth, zoomBarHeight, wui.RGB(80, 80, 80))
@@ -699,6 +741,7 @@ func printUsage() {
 	fmt.Println("  ab2e encode -i <input.json> -o <output.bin>")
 	fmt.Println("  ab2e decode -i <input.bin> -o <output.json>")
 	fmt.Println("  ab2e draw [-t bin|json] <scene_file>")
+	fmt.Println("  ab2e <scene_file>             (auto-detect format)")
 	fmt.Println("  ab2e help")
 	fmt.Println()
 	fmt.Println("Commands:")
@@ -713,10 +756,12 @@ func printUsage() {
 	fmt.Println("  Mouse Drag  - Pan viewport")
 	fmt.Println("  Mouse Wheel - Zoom in/out")
 	fmt.Println("  R           - Reset view to default")
+	fmt.Println("  F           - Fit view to scene")
 	fmt.Println()
 	fmt.Println("Examples:")
 	fmt.Println("  ab2e encode -i scene.json -o scene.bin")
 	fmt.Println("  ab2e decode -i scene.bin -o scene.json")
 	fmt.Println("  ab2e draw scene.json")
 	fmt.Println("  ab2e draw -t bin scene.bin")
+	fmt.Println("  ab2e scene.json")
 }

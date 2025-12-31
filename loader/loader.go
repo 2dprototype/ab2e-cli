@@ -46,12 +46,12 @@ type Fixture struct {
 }
 
 type Shape struct {
-	Type     int       `json:"type"`
-	Position [2]float64 `json:"position"`
+	Type     int          `json:"type"`
+	Position [2]float64   `json:"position"`
 	Vertices [][2]float64 `json:"vertices"`
-	Width    float64   `json:"width"`
-	Height   float64   `json:"height"`
-	Radius   float64   `json:"radius"`
+	Width    float64      `json:"width"`
+	Height   float64      `json:"height"`
+	Radius   float64      `json:"radius"`
 }
 
 type Joint struct {
@@ -73,7 +73,7 @@ type Joint struct {
 	ReferenceAngle    float64  `json:"referenceAngle"`
 	MotorSpeed    float64      `json:"motorSpeed"`
 	MaxMotorTorque   float64   `json:"maxMotorTorque"`
-	EnableMotor    bool        `json:"EnableMotor"`
+	EnableMotor    bool        `json:"enableMotor"`
 }
 
 type Particle struct {
@@ -86,10 +86,10 @@ type Sprite struct {
 
 type World struct {
 	Gravity        [2]float64 `json:"gravity"`
-	AllowSleep     bool      `json:"allowSleep"`
-	DebugDraw      bool      `json:"debugDraw"`
-	DrawScale      float64   `json:"drawScale"`
-	DrawSprites    bool      `json:"drawSprites"`
+	AllowSleep     bool       `json:"allowSleep"`
+	DebugDraw      bool       `json:"debugDraw"`
+	DrawScale      float64    `json:"drawScale"`
+	DrawSprites    bool       `json:"drawSprites"`
 }
 
 func DecodeScene(jsonStr string) (*Scene, error) {
