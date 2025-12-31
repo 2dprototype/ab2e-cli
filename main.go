@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	Version = "v0.0.3"
+	Version = "v0.0.4"
 )
 
 func main() {
@@ -176,9 +176,9 @@ func printUsage() {
 	fmt.Println("Version:", Version)
 	fmt.Println()
 	fmt.Println("Usage:")
-	fmt.Println("  ab2e encode -i <input.json> -o <output.bin>")
-	fmt.Println("  ab2e decode -i <input.bin> -o <output.json>")
-	fmt.Println("  ab2e draw [-t bin|json] <scene_file>")
+	fmt.Println("  ab2e encode -i <input.json> -o <output.scn>")
+	fmt.Println("  ab2e decode -i <input.scn> -o <output.json>")
+	fmt.Println("  ab2e draw [-t scn|json] <scene_file>")
 	fmt.Println("  ab2e <scene_file>")
 	fmt.Println("  ab2e config [-reset|-show]")
 	fmt.Println("  ab2e version")
