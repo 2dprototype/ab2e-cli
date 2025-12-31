@@ -218,6 +218,7 @@ type InteractionState struct {
 	MouseJoint  *box2d.B2MouseJoint
 	GroundBody  *box2d.B2Body // Static body for mouse joints
 	MouseActive bool
+	ShowJoints  bool // New: Toggle joint rendering
 }
 
 // QueryCallback for finding bodies under mouse
@@ -480,8 +481,9 @@ func launchPreview(scene *loader.Scene) {
 
 	// Interaction State
 	iState := &InteractionState{
-		Mode:  ModePanZoom,
-		Style: StyleFlat,
+		Mode:       ModePanZoom,
+		Style:      StyleFlat,
+		ShowJoints: true, // Default to showing joints
 	}
 
 	// Create a static ground body for the mouse joint
@@ -530,6 +532,8 @@ func launchPreview(scene *loader.Scene) {
 			}
 		case 84: // T - Toggle Theme
 			iState.Style = (iState.Style + 1) % 4
+		case 74: // J - Toggle Joints
+			iState.ShowJoints = !iState.ShowJoints
 		}
 		updated = true
 	})
@@ -670,28 +674,33 @@ func launchPreview(scene *loader.Scene) {
 // Rendering Logic
 // ----------------------------------------------------------------------------
 
-func getThemeColors(style RenderStyle) (bg, grid, text wui.Color) {
+func getThemeColors(style RenderStyle) (bg, grid, text, jointColor, mouseJointColor wui.Color) {
 	switch style {
 	case StyleFlat:
-		return wui.RGB(240, 240, 245), wui.RGB(220, 220, 230), wui.RGB(50, 50, 60)
+		return wui.RGB(240, 240, 245), wui.RGB(220, 220, 230), wui.RGB(50, 50, 60), 
+			wui.RGB(255, 100, 100), wui.RGB(0, 200, 0)
 	case StyleClassic:
-		return wui.RGB(20, 20, 20), wui.RGB(40, 40, 40), wui.RGB(220, 220, 220)
+		return wui.RGB(20, 20, 20), wui.RGB(40, 40, 40), wui.RGB(220, 220, 220),
+			wui.RGB(0, 191, 255), wui.RGB(50, 205, 50)
 	case StyleNeon:
-		return wui.RGB(5, 5, 10), wui.RGB(30, 20, 40), wui.RGB(0, 255, 255)
+		return wui.RGB(5, 5, 10), wui.RGB(30, 20, 40), wui.RGB(0, 255, 255),
+			wui.RGB(255, 20, 147), wui.RGB(0, 255, 127)
 	case StyleBlueprint:
-		return wui.RGB(10, 50, 100), wui.RGB(20, 70, 130), wui.RGB(220, 230, 255)
+		return wui.RGB(10, 50, 100), wui.RGB(20, 70, 130), wui.RGB(220, 230, 255),
+			wui.RGB(255, 215, 0), wui.RGB(144, 238, 144)
 	default:
-		return wui.RGB(0, 0, 0), wui.RGB(50, 50, 50), wui.RGB(255, 255, 255)
+		return wui.RGB(0, 0, 0), wui.RGB(50, 50, 50), wui.RGB(255, 255, 255),
+			wui.RGB(100, 100, 100), wui.RGB(0, 200, 0)
 	}
 }
 
 func clearCanvas(canvas *wui.Canvas, width, height int, style RenderStyle) {
-	bg, _, _ := getThemeColors(style)
+	bg, _, _, _, _ := getThemeColors(style)
 	canvas.FillRect(0, 0, width, height, bg)
 }
 
 func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport, width, height int, iState *InteractionState) {
-	_, gridColor, _ := getThemeColors(iState.Style)
+	_, gridColor, _, jointColor, mouseJointColor := getThemeColors(iState.Style)
 	zoom := viewport.GetZoom()
 
 	// 1. Grid
@@ -738,18 +747,21 @@ func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport, w
 		}
 		renderBody(canvas, body, viewport, width, height, iState.Style)
 	}
+	
+	// 3. Joints 
+	if iState.ShowJoints {
+		for joint := world.GetJointList(); joint != nil; joint = joint.GetNext() {
+			if joint == iState.MouseJoint {
+				renderMouseJoint(canvas, joint.(*box2d.B2MouseJoint), viewport, mouseJointColor)
+			} else {
+				renderJoint(canvas, joint, viewport, jointColor, iState.Style)
+			}
+		}
+	}
 
-	// 3. Joints (specifically Mouse Joint Visualization)
-	if iState.MouseJoint != nil {
-		target := iState.MouseJoint.GetTarget()
-		bodyB := iState.MouseJoint.GetBodyB()
-		anchorB := bodyB.GetPosition()
-
-		sx1, sy1 := viewport.WorldToScreen(target.X, target.Y)
-		sx2, sy2 := viewport.WorldToScreen(anchorB.X, anchorB.Y)
-
-		canvas.Line(sx1, sy1, sx2, sy2, wui.RGB(255, 255, 255))
-		canvas.FillEllipse(sx1-3, sy1-3, 6, 6, wui.RGB(0, 255, 0))
+	// 4. Mouse joint (if not already rendered in joints section)
+	if iState.MouseJoint != nil && !iState.ShowJoints {
+		renderMouseJoint(canvas, iState.MouseJoint, viewport, mouseJointColor)
 	}
 }
 
@@ -857,8 +869,167 @@ func renderBody(canvas *wui.Canvas, body *box2d.B2Body, viewport *Viewport, widt
 	}
 }
 
+// renderJoint renders a Box2D joint
+func renderJoint(canvas *wui.Canvas, joint box2d.B2JointInterface, viewport *Viewport, color wui.Color, style RenderStyle) {
+	b1 := joint.GetBodyA()
+	b2 := joint.GetBodyB()
+	
+	if b1 == nil || b2 == nil {
+		return
+	}
+	
+	x1 := b1.GetPosition()
+	x2 := b2.GetPosition()
+	
+	// Get joint type
+	jointType := joint.GetType()
+	
+	// For all joint types, get anchor points
+	var p1, p2 box2d.B2Vec2
+
+	switch j := joint.(type) {
+
+	case *box2d.B2RevoluteJoint:
+		p1 = j.GetAnchorA()
+		p2 = j.GetAnchorB()
+
+	case *box2d.B2DistanceJoint:
+		p1 = j.GetAnchorA()
+		p2 = j.GetAnchorB()
+
+	case *box2d.B2PrismaticJoint:
+		p1 = j.GetAnchorA()
+		p2 = j.GetAnchorB()
+
+	case *box2d.B2WeldJoint:
+		p1 = j.GetAnchorA()
+		p2 = j.GetAnchorB()
+
+	case *box2d.B2WheelJoint:
+		p1 = j.GetAnchorA()
+		p2 = j.GetAnchorB()
+
+	case *box2d.B2FrictionJoint:
+		p1 = j.GetAnchorA()
+		p2 = j.GetAnchorB()
+
+	case *box2d.B2MotorJoint:
+		p1 = j.GetAnchorA()
+		p2 = j.GetAnchorB()
+
+	case *box2d.B2PulleyJoint:
+		p1 = j.GetAnchorA()
+		p2 = j.GetAnchorB()
+
+	default:
+		// fallback: connect body centers
+		p1 = joint.GetBodyA().GetPosition()
+		p2 = joint.GetBodyB().GetPosition()
+	}
+
+	
+	sx1, sy1 := viewport.WorldToScreen(x1.X, x1.Y)
+	sx2, sy2 := viewport.WorldToScreen(x2.X, x2.Y)
+	sp1x, sp1y := viewport.WorldToScreen(p1.X, p1.Y)
+	sp2x, sp2y := viewport.WorldToScreen(p2.X, p2.Y)
+	
+	switch jointType {
+	case box2d.B2JointType.E_revoluteJoint:
+		// Revolute joint: body1 -> anchor1 -> anchor2 -> body2
+		canvas.Line(sx1, sy1, sp1x, sp1y, color)
+		canvas.Line(sp1x, sp1y, sp2x, sp2y, color)
+		canvas.Line(sp2x, sp2y, sx2, sy2, color)
+		
+		// Draw joint center
+		canvas.FillEllipse(sp1x-3, sp1y-3, 6, 6, color)
+		
+	case box2d.B2JointType.E_distanceJoint:
+		// Distance joint: anchor1 -> anchor2
+		canvas.Line(sp1x, sp1y, sp2x, sp2y, color)
+		
+	case box2d.B2JointType.E_prismaticJoint:
+		// Prismatic joint: body1 -> anchor1 -> anchor2 -> body2
+		canvas.Line(sx1, sy1, sp1x, sp1y, color)
+		canvas.Line(sp1x, sp1y, sp2x, sp2y, color)
+		canvas.Line(sp2x, sp2y, sx2, sy2, color)
+		
+	case box2d.B2JointType.E_weldJoint:
+		// Weld joint: body1 -> anchor1 -> anchor2 -> body2
+		canvas.Line(sx1, sy1, sp1x, sp1y, color)
+		canvas.Line(sp1x, sp1y, sp2x, sp2y, color)
+		canvas.Line(sp2x, sp2y, sx2, sy2, color)
+		
+	case box2d.B2JointType.E_pulleyJoint:
+		// Pulley joint
+		if pulleyJoint, ok := joint.(*box2d.B2PulleyJoint); ok {
+			groundAnchor1 := pulleyJoint.GetGroundAnchorA()
+			groundAnchor2 := pulleyJoint.GetGroundAnchorB()
+			
+			sg1x, sg1y := viewport.WorldToScreen(groundAnchor1.X, groundAnchor1.Y)
+			sg2x, sg2y := viewport.WorldToScreen(groundAnchor2.X, groundAnchor2.Y)
+			
+			// Draw the pulley lines
+			canvas.Line(sp1x, sp1y, sg1x, sg1y, color)
+			canvas.Line(sp2x, sp2y, sg2x, sg2y, color)
+			canvas.Line(sg1x, sg1y, sg2x, sg2y, color)
+			
+			// Draw ground anchors
+			canvas.FillEllipse(sg1x-2, sg1y-2, 4, 4, color)
+			canvas.FillEllipse(sg2x-2, sg2y-2, 4, 4, color)
+		}
+		
+	case box2d.B2JointType.E_gearJoint:
+		// Gear joint: body1 -> anchor1 -> anchor2 -> body2
+		canvas.Line(sx1, sy1, sp1x, sp1y, color)
+		canvas.Line(sp1x, sp1y, sp2x, sp2y, color)
+		canvas.Line(sp2x, sp2y, sx2, sy2, color)
+		
+	case box2d.B2JointType.E_wheelJoint:
+		// Wheel joint: body1 -> anchor1 -> anchor2 -> body2
+		canvas.Line(sx1, sy1, sp1x, sp1y, color)
+		canvas.Line(sp1x, sp1y, sp2x, sp2y, color)
+		canvas.Line(sp2x, sp2y, sx2, sy2, color)
+		
+	case box2d.B2JointType.E_ropeJoint:
+		// Rope joint: body1 -> anchor1 -> anchor2 -> body2
+		canvas.Line(sx1, sy1, sp1x, sp1y, color)
+		canvas.Line(sp1x, sp1y, sp2x, sp2y, color)
+		canvas.Line(sp2x, sp2y, sx2, sy2, color)
+		
+	case box2d.B2JointType.E_frictionJoint:
+		// Friction joint: body1 -> anchor1 -> anchor2 -> body2
+		canvas.Line(sx1, sy1, sp1x, sp1y, color)
+		canvas.Line(sp1x, sp1y, sp2x, sp2y, color)
+		canvas.Line(sp2x, sp2y, sx2, sy2, color)
+		
+	case box2d.B2JointType.E_motorJoint:
+		// Motor joint: body1 -> body2
+		canvas.Line(sx1, sy1, sx2, sy2, color)
+		
+	default:
+		// Default: draw line between anchors
+		canvas.Line(sp1x, sp1y, sp2x, sp2y, color)
+	}
+}
+
+// renderMouseJoint renders a mouse joint (special case)
+func renderMouseJoint(canvas *wui.Canvas, joint *box2d.B2MouseJoint, viewport *Viewport, color wui.Color) {
+	target := joint.GetTarget()
+	bodyB := joint.GetBodyB()
+	if bodyB == nil {
+		return
+	}
+	anchorB := bodyB.GetPosition()
+
+	sx1, sy1 := viewport.WorldToScreen(target.X, target.Y)
+	sx2, sy2 := viewport.WorldToScreen(anchorB.X, anchorB.Y)
+
+	canvas.Line(sx1, sy1, sx2, sy2, color)
+	canvas.FillEllipse(sx1-3, sy1-3, 6, 6, color)
+}
+
 func renderHUD(canvas *wui.Canvas, viewport *Viewport, width, height int, iState *InteractionState) {
-	_, _, textColor := getThemeColors(iState.Style)
+	_, _, textColor, _, _ := getThemeColors(iState.Style)
 	
 	y := 10
 	lineH := 20
@@ -871,6 +1042,11 @@ func renderHUD(canvas *wui.Canvas, viewport *Viewport, width, height int, iState
 	// Style Indicator
 	styleStr := fmt.Sprintf("STYLE: %s (Press 'T')", iState.Style)
 	canvas.TextOut(10, y, styleStr, textColor)
+	y += lineH
+
+	// Joints Indicator
+	jointsStr := fmt.Sprintf("JOINTS: %v (Press 'J')", iState.ShowJoints)
+	canvas.TextOut(10, y, jointsStr, textColor)
 	y += lineH * 2
 
 	// Instructions
@@ -881,6 +1057,7 @@ func renderHUD(canvas *wui.Canvas, viewport *Viewport, width, height int, iState
 		"+ / -      : Zoom",
 		"G          : Toggle Grab/Pan",
 		"T          : Toggle Theme",
+		"J          : Toggle Joints",
 		"R          : Reset View",
 	}
 
