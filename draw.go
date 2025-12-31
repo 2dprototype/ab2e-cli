@@ -54,52 +54,50 @@ func NewConfig() *Config {
 	}
 }
 
-func LoadConfig() *Config {
-	config := NewConfig()
-	
-	// Get executable name without extension
+func configPath() string {
 	exePath, err := os.Executable()
 	if err != nil {
-		return config
+		return "config.json" // safe fallback
 	}
-	
+
+	exeDir := filepath.Dir(exePath)
 	exeName := filepath.Base(exePath)
 	exeBase := strings.TrimSuffix(exeName, filepath.Ext(exeName))
-	configFile := exeBase + ".json"
-	
-	data, err := os.ReadFile(configFile)
+
+	return filepath.Join(exeDir, exeBase+".json")
+}
+
+func LoadConfig() *Config {
+	config := NewConfig()
+
+	path := configPath()
+
+	data, err := os.ReadFile(path)
 	if err != nil {
-		// Config file doesn't exist, create default
-		config.Save()
+		// File doesn't exist → save defaults
+		_ = config.Save()
 		return config
 	}
-	
+
 	if err := json.Unmarshal(data, config); err != nil {
 		fmt.Printf("Error parsing config file: %v\n", err)
 		return NewConfig()
 	}
-	
+
 	return config
 }
 
 func (c *Config) Save() error {
-	// Get executable name without extension
-	exePath, err := os.Executable()
-	if err != nil {
-		return err
-	}
-	
-	exeName := filepath.Base(exePath)
-	exeBase := strings.TrimSuffix(exeName, filepath.Ext(exeName))
-	configFile := exeBase + ".json"
-	
+	path := configPath()
+
 	data, err := json.MarshalIndent(c, "", "  ")
 	if err != nil {
 		return err
 	}
-	
-	return os.WriteFile(configFile, data, 0644)
+
+	return os.WriteFile(path, data, 0644)
 }
+
 
 func encodeFile(input, output string) {
 	raw, err := os.ReadFile(input)
@@ -795,6 +793,43 @@ func renderBody(canvas *wui.Canvas, body *box2d.B2Body, viewport *Viewport, widt
 			if style != StyleFlat {
 				canvas.Polyline(append(points, points[0]), outline)
 			}
+		} else if shape.GetType() == box2d.B2Shape_Type.E_edge {
+			// Edge shape (line segment)
+			edgeShape := shape.(*box2d.B2EdgeShape)
+			v1 := body.GetWorldPoint(edgeShape.M_vertex1)
+			v2 := body.GetWorldPoint(edgeShape.M_vertex2)
+			
+			screenX1, screenY1 := viewport.WorldToScreen(v1.X, v1.Y)
+			screenX2, screenY2 := viewport.WorldToScreen(v2.X, v2.Y)
+			
+			canvas.Line(
+				screenX1,
+				screenY1,
+				screenX2,
+				screenY2,
+				outline,
+			)
+		} else if shape.GetType() == box2d.B2Shape_Type.E_chain {
+			// Chain shape
+			chainShape := shape.(*box2d.B2ChainShape)
+			vertices := chainShape.M_vertices
+			count := chainShape.M_count
+			
+			for i := 0; i < count-1; i++ {
+				v1 := body.GetWorldPoint(vertices[i])
+				v2 := body.GetWorldPoint(vertices[i+1])
+				
+				screenX1, screenY1 := viewport.WorldToScreen(v1.X, v1.Y)
+				screenX2, screenY2 := viewport.WorldToScreen(v2.X, v2.Y)
+				
+				canvas.Line(
+					screenX1,
+					screenY1,
+					screenX2,
+					screenY2,
+					outline,
+				)
+			}
 		}
 	}
 }
@@ -982,7 +1017,6 @@ func renderHUD(canvas *wui.Canvas, viewport *Viewport, width, height int, iState
 	// Instructions
 	strs := []string{
 		"CONTROLS:",
-		"----------------",
 		"Arrow Keys : Pan",
 		"+ / -      : Zoom",
 		"G          : Toggle Grab/Pan",
