@@ -36,21 +36,29 @@ type Config struct {
 	ShowJointsByDefault   bool    `json:"show_joints_by_default"`
 	PanSensitivity        float64 `json:"pan_sensitivity"`
 	ZoomStep              float64 `json:"zoom_step"`
+	ShowAABB              bool    `json:"show_aabb"`
+	ShowVelocity          bool    `json:"show_velocity"`
+	ShowCenterOfMass      bool    `json:"show_center_of_mass"`
+	ShowShapes            bool    `json:"show_shapes"`
 }
 
 func NewConfig() *Config {
 	return &Config{
-		DefaultInputMode:      int(ModePanZoom),
-		DefaultRenderStyle:    int(StyleClassic),
+		DefaultInputMode:      int(ModeGrab),
+		DefaultRenderStyle:    int(StyleWireframe),
 		DefaultWindowWidth:    600,
 		DefaultWindowHeight:   450,
 		DefaultFPS:            60,
 		DefaultZoom:           1.0,
 		MinZoom:               0.1,
 		MaxZoom:               5.0,
-		ShowJointsByDefault:   true,
+		ShowJointsByDefault:   false,
 		PanSensitivity:        0.125,
 		ZoomStep:              0.1,
+		ShowAABB:              false,
+		ShowVelocity:          false,
+		ShowCenterOfMass:      false,
+		ShowShapes:            true,
 	}
 }
 
@@ -218,9 +226,13 @@ func launchPreview(scene *loader.Scene, config *Config) {
 
 	// Interaction State
 	iState := &InteractionState{
-		Mode:       InputMode(config.DefaultInputMode),
-		Style:      RenderStyle(config.DefaultRenderStyle),
-		ShowJoints: config.ShowJointsByDefault,
+		Mode:            InputMode(config.DefaultInputMode),
+		Style:           RenderStyle(config.DefaultRenderStyle),
+		ShowJoints:      config.ShowJointsByDefault,
+		ShowAABB:        config.ShowAABB,
+		ShowVelocity:    config.ShowVelocity,
+		ShowCenterOfMass: config.ShowCenterOfMass,
+		ShowShapes:      config.ShowShapes,
 	}
 
 	// Create a static ground body for the mouse joint
@@ -268,9 +280,29 @@ func launchPreview(scene *loader.Scene, config *Config) {
 				iState.Mode = ModePanZoom
 			}
 		case 84: // T - Toggle Theme
-			iState.Style = (iState.Style + 1) % 4
+			iState.Style = (iState.Style + 1) % 9 // Updated for more styles
 		case 74: // J - Toggle Joints
 			iState.ShowJoints = !iState.ShowJoints
+		case 65: // A - Toggle AABB
+			iState.ShowAABB = !iState.ShowAABB
+		case 86: // V - Toggle Velocity
+			iState.ShowVelocity = !iState.ShowVelocity
+		case 67: // C - Toggle Center of Mass
+			iState.ShowCenterOfMass = !iState.ShowCenterOfMass
+		case 83: // S - Toggle Shapes
+			iState.ShowShapes = !iState.ShowShapes
+		case 76: // L - Toggle All Debug
+			if iState.ShowAABB && iState.ShowVelocity && iState.ShowCenterOfMass {
+				// Turn all off
+				iState.ShowAABB = false
+				iState.ShowVelocity = false
+				iState.ShowCenterOfMass = false
+			} else {
+				// Turn all on
+				iState.ShowAABB = true
+				iState.ShowVelocity = true
+				iState.ShowCenterOfMass = true
+			}
 		}
 		updated = true
 	})
@@ -394,6 +426,7 @@ func launchPreview(scene *loader.Scene, config *Config) {
 		for range ticker.C {
 			mutex.Lock()
 			world.Step(stepTime, 8, 3)
+			
 			updated = true
 			paintBox.Paint()
 			mutex.Unlock()
@@ -435,6 +468,11 @@ const (
 	StyleClassic
 	StyleNeon
 	StyleBlueprint
+	StyleModern
+	StyleWireframe
+	StyleMaterial
+	StylePastel
+	StyleMonochrome
 )
 
 func (s RenderStyle) String() string {
@@ -447,6 +485,16 @@ func (s RenderStyle) String() string {
 		return "Neon"
 	case StyleBlueprint:
 		return "Blueprint"
+	case StyleModern:
+		return "Modern"
+	case StyleWireframe:
+		return "Wireframe"
+	case StyleMaterial:
+		return "Material"
+	case StylePastel:
+		return "Pastel"
+	case StyleMonochrome:
+		return "Monochrome"
 	default:
 		return "Unknown"
 	}
@@ -590,45 +638,84 @@ func (v *Viewport) ScreenToWorld(screenX, screenY int) (worldX, worldY float64) 
 // ----------------------------------------------------------------------------
 
 type InteractionState struct {
-	Mode        InputMode
-	Style       RenderStyle
-	MouseJoint  *box2d.B2MouseJoint
-	GroundBody  *box2d.B2Body
-	MouseActive bool
-	ShowJoints  bool
+	Mode             InputMode
+	Style            RenderStyle
+	MouseJoint       *box2d.B2MouseJoint
+	GroundBody       *box2d.B2Body
+	MouseActive      bool
+	ShowJoints       bool
+	ShowAABB         bool
+	ShowVelocity     bool
+	ShowCenterOfMass bool
+	ShowShapes       bool
+}
+
+type ContactPoint struct {
+	Position box2d.B2Vec2
+	Normal   box2d.B2Vec2
+	Force    float64
 }
 
 // ----------------------------------------------------------------------------
 // Rendering Logic
 // ----------------------------------------------------------------------------
 
-func getThemeColors(style RenderStyle) (bg, grid, text, jointColor, mouseJointColor wui.Color) {
+func getThemeColors(style RenderStyle) (bg, grid, text, jointColor, mouseJointColor, aabbColor, velocityColor, comColor, contactColor wui.Color) {
 	switch style {
 	case StyleFlat:
 		return wui.RGB(240, 240, 245), wui.RGB(220, 220, 230), wui.RGB(50, 50, 60), 
-			wui.RGB(255, 100, 100), wui.RGB(0, 200, 0)
+			wui.RGB(255, 100, 100), wui.RGB(0, 200, 0),
+			wui.RGB(100, 100, 255), wui.RGB(255, 200, 0), wui.RGB(0, 200, 255), wui.RGB(255, 50, 50)
 	case StyleClassic:
 		return wui.RGB(20, 20, 20), wui.RGB(40, 40, 40), wui.RGB(220, 220, 220),
-			wui.RGB(0, 191, 255), wui.RGB(50, 205, 50)
+			wui.RGB(0, 191, 255), wui.RGB(50, 205, 50),
+			wui.RGB(100, 149, 237), wui.RGB(255, 215, 0), wui.RGB(64, 224, 208), wui.RGB(220, 20, 60)
 	case StyleNeon:
 		return wui.RGB(5, 5, 10), wui.RGB(30, 20, 40), wui.RGB(0, 255, 255),
-			wui.RGB(255, 20, 147), wui.RGB(0, 255, 127)
+			wui.RGB(255, 20, 147), wui.RGB(0, 255, 127),
+			wui.RGB(138, 43, 226), wui.RGB(255, 255, 0), wui.RGB(0, 255, 255), wui.RGB(255, 69, 0)
 	case StyleBlueprint:
 		return wui.RGB(10, 50, 100), wui.RGB(20, 70, 130), wui.RGB(220, 230, 255),
-			wui.RGB(255, 215, 0), wui.RGB(144, 238, 144)
+			wui.RGB(255, 215, 0), wui.RGB(144, 238, 144),
+			wui.RGB(135, 206, 250), wui.RGB(255, 165, 0), wui.RGB(0, 191, 255), wui.RGB(255, 99, 71)
+	case StyleModern:
+		// Modern dark theme with vibrant accents
+		return wui.RGB(18, 18, 24), wui.RGB(30, 30, 40), wui.RGB(230, 230, 240),
+			wui.RGB(0, 230, 118), wui.RGB(41, 182, 246),
+			wui.RGB(103, 58, 183), wui.RGB(255, 145, 0), wui.RGB(0, 176, 255), wui.RGB(255, 61, 0)
+	case StyleWireframe:
+		return wui.RGB(20, 20, 20), wui.RGB(40, 40, 40), wui.RGB(220, 220, 220),
+			wui.RGB(0, 191, 255), wui.RGB(50, 205, 50),
+			wui.RGB(186, 85, 211), wui.RGB(255, 140, 0), wui.RGB(0, 191, 255), wui.RGB(220, 20, 60)
+	case StyleMaterial:
+		// Material Design colors
+		return wui.RGB(33, 33, 33), wui.RGB(66, 66, 66), wui.RGB(255, 255, 255),
+			wui.RGB(0, 188, 212), wui.RGB(76, 175, 80),
+			wui.RGB(156, 39, 176), wui.RGB(255, 193, 7), wui.RGB(3, 169, 244), wui.RGB(244, 67, 54)
+	case StylePastel:
+		// Soft pastel colors
+		return wui.RGB(245, 245, 250), wui.RGB(230, 230, 240), wui.RGB(80, 80, 100),
+			wui.RGB(255, 182, 193), wui.RGB(152, 251, 152),
+			wui.RGB(221, 160, 221), wui.RGB(255, 222, 173), wui.RGB(175, 238, 238), wui.RGB(255, 160, 122)
+	case StyleMonochrome:
+		// Grayscale with red accent
+		return wui.RGB(25, 25, 25), wui.RGB(50, 50, 50), wui.RGB(220, 220, 220),
+			wui.RGB(150, 150, 150), wui.RGB(100, 100, 100),
+			wui.RGB(200, 200, 200), wui.RGB(255, 255, 255), wui.RGB(180, 180, 180), wui.RGB(255, 0, 0)
 	default:
 		return wui.RGB(0, 0, 0), wui.RGB(50, 50, 50), wui.RGB(255, 255, 255),
-			wui.RGB(100, 100, 100), wui.RGB(0, 200, 0)
+			wui.RGB(100, 100, 100), wui.RGB(0, 200, 0),
+			wui.RGB(100, 100, 255), wui.RGB(255, 200, 0), wui.RGB(0, 200, 255), wui.RGB(255, 50, 50)
 	}
 }
 
 func clearCanvas(canvas *wui.Canvas, width, height int, style RenderStyle) {
-	bg, _, _, _, _ := getThemeColors(style)
+	bg, _, _, _, _, _, _, _, _ := getThemeColors(style)
 	canvas.FillRect(0, 0, width, height, bg)
 }
 
 func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport, width, height int, iState *InteractionState) {
-	_, gridColor, _, jointColor, mouseJointColor := getThemeColors(iState.Style)
+	_, gridColor, _, jointColor, mouseJointColor, aabbColor, velocityColor, comColor, _ := getThemeColors(iState.Style)
 	zoom := viewport.GetZoom()
 
 	// 1. Grid
@@ -668,12 +755,14 @@ func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport, w
 		}
 	}
 
-	// 2. Bodies
-	for body := world.GetBodyList(); body != nil; body = body.GetNext() {
-		if body == iState.GroundBody {
-			continue
+	// 2. Bodies (if shapes are enabled)
+	if iState.ShowShapes {
+		for body := world.GetBodyList(); body != nil; body = body.GetNext() {
+			if body == iState.GroundBody {
+				continue
+			}
+			renderBody(canvas, body, viewport, width, height, iState.Style)
 		}
-		renderBody(canvas, body, viewport, width, height, iState.Style)
 	}
 	
 	// 3. Joints 
@@ -690,6 +779,28 @@ func renderWorld(canvas *wui.Canvas, world *box2d.B2World, viewport *Viewport, w
 	// 4. Mouse joint (if not already rendered in joints section)
 	if iState.MouseJoint != nil && !iState.ShowJoints {
 		renderMouseJoint(canvas, iState.MouseJoint, viewport, mouseJointColor)
+	}
+
+	// 5. Debug visualizations
+	for body := world.GetBodyList(); body != nil; body = body.GetNext() {
+		if body == iState.GroundBody {
+			continue
+		}
+		
+		// AABB
+		if iState.ShowAABB {
+			renderAABB(canvas, body, viewport, aabbColor)
+		}
+		
+		// Velocity
+		if iState.ShowVelocity {
+			renderVelocity(canvas, body, viewport, velocityColor)
+		}
+		
+		// Center of Mass
+		if iState.ShowCenterOfMass {
+			renderCenterOfMass(canvas, body, viewport, comColor)
+		}
 	}
 }
 
@@ -741,6 +852,68 @@ func renderBody(canvas *wui.Canvas, body *box2d.B2Body, viewport *Viewport, widt
 			fill = wui.RGB(235, 87, 87) // Salmon red
 		}
 		outline = fill // No distinct outline
+		
+	case StyleModern:
+		// Modern dark theme
+		if isStatic {
+			fill = wui.RGB(66, 66, 66) // Dark gray
+			outline = wui.RGB(97, 97, 97)
+		} else if !isAwake {
+			fill = wui.RGB(97, 97, 97) // Gray
+			outline = wui.RGB(117, 117, 117)
+		} else {
+			fill = wui.RGB(41, 182, 246) // Material Blue
+			outline = wui.RGB(79, 195, 247)
+		}
+		
+	case StyleWireframe:
+		// Wireframe style - no fill
+		if isStatic {
+			fill = wui.RGB(0, 0, 0) // Transparent
+			outline = wui.RGB(100, 100, 100)
+		} else {
+			fill = wui.RGB(0, 0, 0) // Transparent
+			outline = wui.RGB(30, 144, 255)
+		}
+		
+	case StyleMaterial:
+		// Material Design colors
+		if isStatic {
+			fill = wui.RGB(97, 97, 97)
+			outline = wui.RGB(158, 158, 158)
+		} else if !isAwake {
+			fill = wui.RGB(158, 158, 158)
+			outline = wui.RGB(189, 189, 189)
+		} else {
+			fill = wui.RGB(33, 150, 243) // Blue 500
+			outline = wui.RGB(66, 165, 245) // Blue 400
+		}
+		
+	case StylePastel:
+		// Soft pastel colors
+		if isStatic {
+			fill = wui.RGB(200, 230, 201) // Pastel green
+			outline = wui.RGB(165, 214, 167)
+		} else if !isAwake {
+			fill = wui.RGB(207, 216, 220) // Pastel gray
+			outline = wui.RGB(176, 190, 197)
+		} else {
+			fill = wui.RGB(255, 204, 188) // Pastel peach
+			outline = wui.RGB(255, 171, 145)
+		}
+		
+	case StyleMonochrome:
+		// Grayscale
+		if isStatic {
+			fill = wui.RGB(100, 100, 100)
+			outline = wui.RGB(150, 150, 150)
+		} else if !isAwake {
+			fill = wui.RGB(150, 150, 150)
+			outline = wui.RGB(180, 180, 180)
+		} else {
+			fill = wui.RGB(200, 200, 200)
+			outline = wui.RGB(220, 220, 220)
+		}
 	}
 
 	for f := body.GetFixtureList(); f != nil; f = f.GetNext() {
@@ -752,19 +925,21 @@ func renderBody(canvas *wui.Canvas, body *box2d.B2Body, viewport *Viewport, widt
 			radius := circle.M_radius
 
 			sx, sy := viewport.WorldToScreen(center.X, center.Y)
-			sr := int(radius * viewport.zoom * scale)
+			sr := int(radius * viewport.GetZoom() * scale)
 
 			if sr < 1 {
 				sr = 1
 			}
 
 			// Draw Fill
-			if style != StyleClassic { // Classic is outline focused usually, but let's fill semi-transparently logic here
+			if style != StyleWireframe {
 				canvas.FillEllipse(sx-sr, sy-sr, sr*2, sr*2, fill)
 			}
 
 			// Draw Outline
-			if style != StyleFlat {
+			if style != StyleFlat && style != StyleWireframe {
+				canvas.DrawEllipse(sx-sr, sy-sr, sr*2, sr*2, outline)
+			} else if style == StyleWireframe {
 				canvas.DrawEllipse(sx-sr, sy-sr, sr*2, sr*2, outline)
 			}
 
@@ -785,12 +960,12 @@ func renderBody(canvas *wui.Canvas, body *box2d.B2Body, viewport *Viewport, widt
 				points[i] = wui.Point{X: int32(sx), Y: int32(sy)}
 			}
 
-			if style != StyleClassic {
+			if style != StyleWireframe {
 				canvas.Polygon(points, fill)
 			}
 			
-			// For Classic/Neon/Blueprint we explicitly want the outline drawn
-			if style != StyleFlat {
+			// Draw outline
+			if style != StyleFlat || style == StyleWireframe {
 				canvas.Polyline(append(points, points[0]), outline)
 			}
 		} else if shape.GetType() == box2d.B2Shape_Type.E_edge {
@@ -993,8 +1168,124 @@ func renderMouseJoint(canvas *wui.Canvas, joint *box2d.B2MouseJoint, viewport *V
 	canvas.FillEllipse(sx1-3, sy1-3, 6, 6, color)
 }
 
+// renderAABB renders the axis-aligned bounding box of a body
+func renderAABB(canvas *wui.Canvas, body *box2d.B2Body, viewport *Viewport, color wui.Color) {
+	aabb := box2d.MakeB2AABB()
+	aabb.LowerBound.Set(math.MaxFloat64, math.MaxFloat64)
+	aabb.UpperBound.Set(-math.MaxFloat64, -math.MaxFloat64)
+	
+	// Compute AABB from all fixtures
+	for f := body.GetFixtureList(); f != nil; f = f.GetNext() {
+		shape := f.GetShape()
+		var childAABB box2d.B2AABB
+		shape.ComputeAABB(&childAABB, body.GetTransform(), 0)
+		
+		// Expand overall AABB
+		aabb.LowerBound.X = math.Min(aabb.LowerBound.X, childAABB.LowerBound.X)
+		aabb.LowerBound.Y = math.Min(aabb.LowerBound.Y, childAABB.LowerBound.Y)
+		aabb.UpperBound.X = math.Max(aabb.UpperBound.X, childAABB.UpperBound.X)
+		aabb.UpperBound.Y = math.Max(aabb.UpperBound.Y, childAABB.UpperBound.Y)
+	}
+	
+	// Convert to screen coordinates
+	minX, minY := viewport.WorldToScreen(aabb.LowerBound.X, aabb.LowerBound.Y)
+	maxX, maxY := viewport.WorldToScreen(aabb.UpperBound.X, aabb.UpperBound.Y)
+	
+	// Draw AABB rectangle
+	canvas.DrawRect(minX, minY, maxX-minX, maxY-minY, color)
+	
+	// Draw corners
+	// cornerSize := 4
+	// canvas.FillRect(minX-cornerSize/2, minY-cornerSize/2, cornerSize, cornerSize, color)
+	// canvas.FillRect(maxX-cornerSize/2, minY-cornerSize/2, cornerSize, cornerSize, color)
+	// canvas.FillRect(minX-cornerSize/2, maxY-cornerSize/2, cornerSize, cornerSize, color)
+	// canvas.FillRect(maxX-cornerSize/2, maxY-cornerSize/2, cornerSize, cornerSize, color)
+}
+
+// renderVelocity renders the velocity vector of a body
+func renderVelocity(canvas *wui.Canvas, body *box2d.B2Body, viewport *Viewport, color wui.Color) {
+	pos := body.GetPosition()
+	vel := body.GetLinearVelocity()
+	
+	// Skip if velocity is too small
+	if math.Abs(vel.X) < 0.01 && math.Abs(vel.Y) < 0.01 {
+		return
+	}
+	
+	// Scale velocity for visualization
+	scale := 0.5 // seconds of motion to show
+	endPos := box2d.B2Vec2{
+		X: pos.X + vel.X * scale,
+		Y: pos.Y + vel.Y * scale,
+	}
+	
+	// Convert to screen coordinates
+	startX, startY := viewport.WorldToScreen(pos.X, pos.Y)
+	endX, endY := viewport.WorldToScreen(endPos.X, endPos.Y)
+	
+	// Draw velocity vector
+	canvas.Line(startX, startY, endX, endY, color)
+	
+	// Draw arrow head
+	dx := float64(endX - startX)
+	dy := float64(endY - startY)
+	length := math.Sqrt(dx*dx + dy*dy)
+	if length > 10 {
+		// Normalize
+		dx /= length
+		dy /= length
+		
+		// Arrow head size
+		arrowSize := 8.0
+		
+		// Perpendicular vectors for arrow wings
+		perpx := -dy
+		perpy := dx
+		
+		// Arrow head points
+		arrowX1 := float64(endX) - dx*arrowSize + perpx*arrowSize*0.5
+		arrowY1 := float64(endY) - dy*arrowSize + perpy*arrowSize*0.5
+		arrowX2 := float64(endX) - dx*arrowSize - perpx*arrowSize*0.5
+		arrowY2 := float64(endY) - dy*arrowSize - perpy*arrowSize*0.5
+		
+		// Draw arrow head
+		canvas.Line(endX, endY, int(arrowX1), int(arrowY1), color)
+		canvas.Line(endX, endY, int(arrowX2), int(arrowY2), color)
+		
+		// Draw speed text
+		speed := math.Sqrt(vel.X*vel.X + vel.Y*vel.Y)
+		speedText := fmt.Sprintf("%.1f", speed)
+		textX := (startX + endX) / 2
+		textY := (startY + endY) / 2 - 10
+		canvas.TextOut(textX, textY, speedText, color)
+	}
+	
+	// Draw center point
+	canvas.FillEllipse(startX-2, startY-2, 4, 4, color)
+}
+
+// renderCenterOfMass renders the center of mass of a body
+func renderCenterOfMass(canvas *wui.Canvas, body *box2d.B2Body, viewport *Viewport, color wui.Color) {
+	com := body.GetWorldCenter()
+	sx, sy := viewport.WorldToScreen(com.X, com.Y)
+	
+	// Draw crosshair
+	size := 6
+	canvas.Line(sx-size, sy, sx+size, sy, color)
+	canvas.Line(sx, sy-size, sx, sy+size, color)
+	
+	// Draw circle
+	canvas.DrawEllipse(sx-4, sy-4, 8, 8, color)
+	
+	// Draw mass text
+	mass := body.GetMass()
+	massText := fmt.Sprintf("%.2f", mass)
+	canvas.TextOut(sx+10, sy-10, massText, color)
+}
+
+
 func renderHUD(canvas *wui.Canvas, viewport *Viewport, width, height int, iState *InteractionState) {
-	_, _, textColor, _, _ := getThemeColors(iState.Style)
+	_, _, textColor, _, _, aabbColor, velocityColor, comColor, _ := getThemeColors(iState.Style)
 	
 	y := 10
 	lineH := 20
@@ -1009,10 +1300,34 @@ func renderHUD(canvas *wui.Canvas, viewport *Viewport, width, height int, iState
 	canvas.TextOut(10, y, styleStr, textColor)
 	y += lineH
 
-	// Joints Indicator
-	jointsStr := fmt.Sprintf("JOINTS: %v (Press 'J')", iState.ShowJoints)
-	canvas.TextOut(10, y, jointsStr, textColor)
-	y += lineH * 2
+	// Toggles
+	canvas.TextOut(10, y, "TOGGLES:", textColor)
+	y += lineH
+	
+	toggles := []struct{
+		enabled bool
+		text    string
+		key     string
+		color   wui.Color
+	}{
+		{iState.ShowShapes, "Shapes", "S", textColor},
+		{iState.ShowJoints, "Joints", "J", textColor},
+		{iState.ShowAABB, "AABB", "A", aabbColor},
+		{iState.ShowVelocity, "Velocity", "V", velocityColor},
+		{iState.ShowCenterOfMass, "Center of Mass", "C", comColor},
+	}
+	
+	for _, t := range toggles {
+		status := "OFF"
+		if t.enabled {
+			status = "ON"
+		}
+		toggleStr := fmt.Sprintf("  %s: %s (Press '%s')", t.text, status, t.key)
+		canvas.TextOut(10, y, toggleStr, t.color)
+		y += lineH
+	}
+	
+	y += lineH
 
 	// Instructions
 	strs := []string{
@@ -1021,7 +1336,7 @@ func renderHUD(canvas *wui.Canvas, viewport *Viewport, width, height int, iState
 		"+ / -      : Zoom",
 		"G          : Toggle Grab/Pan",
 		"T          : Toggle Theme",
-		"J          : Toggle Joints",
+		"L          : Toggle All Debug",
 		"R          : Reset View",
 	}
 

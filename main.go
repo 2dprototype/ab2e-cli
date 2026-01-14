@@ -158,6 +158,10 @@ func configCmd() {
 		fmt.Printf("  Default FPS: %d\n", config.DefaultFPS)
 		fmt.Printf("  Default Zoom: %.2f\n", config.DefaultZoom)
 		fmt.Printf("  Show Joints by Default: %v\n", config.ShowJointsByDefault)
+		fmt.Printf("  Show AABB by Default: %v\n", config.ShowAABB)
+		fmt.Printf("  Show Velocity by Default: %v\n", config.ShowVelocity)
+		fmt.Printf("  Show Center of Mass by Default: %v\n", config.ShowCenterOfMass)
+		fmt.Printf("  Show Shapes by Default: %v\n", config.ShowShapes)
 		fmt.Printf("  Pan Sensitivity: %.3f\n", config.PanSensitivity)
 		fmt.Printf("  Zoom Step: %.2f\n", config.ZoomStep)
 	} else {
